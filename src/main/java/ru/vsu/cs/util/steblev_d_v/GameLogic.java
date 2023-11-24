@@ -79,32 +79,32 @@ public class GameLogic {
                 System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ой! Похоже это имя уже занято. Попробуй ещё раз.");
                 continue;
             }
-            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Теперь давай выберем фигурку, которой ты будешь играть.");
-            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Выберите фигуру игрока " + namePlayer + ": " + ANSI_RESET);
-            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "1. \uD83D\uDC53" + ANSI_RESET);
-            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "2. \uD83D\uDC51" + ANSI_RESET);
-            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "3. \uD83D\uDCF7" + ANSI_RESET);
-            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "4. ✈\uFE0F" + ANSI_RESET);
-            int answerFigure = scanner.nextInt();
-            String figurePlayer = null;
-            switch (answerFigure){
-                case 1:
-                    figurePlayer = "\uD83D\uDC53";
-                    break;
-                case 2:
-                    figurePlayer = "\uD83D\uDC51";
-                    break;
-                case 3:
-                    figurePlayer = "\uD83D\uDCF7";
-                    break;
-                case 4:
-                    figurePlayer = "✈\uFE0F";
-                    break;
-                default:
-                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вы ввели неправильное значение! Попробуйте повторить попытку." + ANSI_RESET);
-            }
+//            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Теперь давай выберем фигурку, которой ты будешь играть.");
+//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Выберите фигуру игрока " + namePlayer + ": " + ANSI_RESET);
+//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "1. \uD83D\uDC53" + ANSI_RESET);
+//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "2. \uD83D\uDC51" + ANSI_RESET);
+//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "3. \uD83D\uDCF7" + ANSI_RESET);
+//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "4. ✈\uFE0F" + ANSI_RESET);
+//            int answerFigure = scanner.nextInt();
+//            String figurePlayer = null;
+//            switch (answerFigure){
+//                case 1:
+//                    figurePlayer = "\uD83D\uDC53";
+//                    break;
+//                case 2:
+//                    figurePlayer = "\uD83D\uDC51";
+//                    break;
+//                case 3:
+//                    figurePlayer = "\uD83D\uDCF7";
+//                    break;
+//                case 4:
+//                    figurePlayer = "✈\uFE0F";
+//                    break;
+//                default:
+//                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вы ввели неправильное значение! Попробуйте повторить попытку." + ANSI_RESET);
+//            }
 
-            players.add(new Bot(namePlayer, "&"));
+            players.add(new Bot(namePlayer));
             i++;
         } while (i <= playerNum);
 

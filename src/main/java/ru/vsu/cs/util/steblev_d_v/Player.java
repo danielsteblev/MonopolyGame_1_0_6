@@ -15,9 +15,8 @@ public class Player {
     private boolean isInJail = false;
     private int currCardIndex = 0;
 
-    public Player(String name, String figure) {
+    public Player(String name) {
         this.name = name;
-        this.figure = figure;
     }
     public List<CompanyCard> getOwnedCompanies() {
         return ownedCompanies;
