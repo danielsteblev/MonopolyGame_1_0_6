@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameLogic {
     private List<Player> players = new ArrayList<>();
     private List<GameMoveStatus> statuses = new ArrayList<>();
-    public static int numberOfMove = 0;
+    public static int numberOfMove = 1;
     private List<Card> cardsOfMap = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -135,64 +135,60 @@ public class GameLogic {
                         scnLine.nextLine();
                         dice1.throwDice();
                         dice2.throwDice();
+                        System.out.println();
 
                         int diceResult = dice1.getDiceResult() + dice2.getDiceResult();
                         switch (diceResult) {
                             case 2:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚀⚀ Тебе выпало: 2" + ANSI_RESET);
                                 break;
                             case 3:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚀⚁ Тебе выпало: 3" + ANSI_RESET);
                                 break;
                             case 4:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚀ Тебе выпало: 4" + ANSI_RESET);
                                 break;
                             case 5:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚁ Тебе выпало: 5" + ANSI_RESET);
                                 break;
                             case 6:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚄⚀ Тебе выпало: 6" + ANSI_RESET);
                                 break;
                             case 7:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚃⚂ Тебе выпало: 7" + ANSI_RESET);
                                 break;
                             case 8:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚄ Тебе выпало: 8" + ANSI_RESET);
                                 break;
                             case 9:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚂ Тебе выпало: 9" + ANSI_RESET);
                                 break;
                             case 10:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚄⚄ Тебе выпало: 10" + ANSI_RESET);
                                 break;
-                            case 11:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
+                            case 11: ;
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚄ Тебе выпало: 11" + ANSI_RESET);
                                 break;
                             case 12:
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас.");
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚅ Тебе выпало: 12" + ANSI_RESET);
                                 break;
                         }
                         int playerNewCardIndex = player.getCurrCardIndex() + diceResult;
-                        numberOfMove++;
+//                        numberOfMove++;
                         if (playerNewCardIndex >= cardsOfMap.size()) {
+                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под ником " + player.getName() +
+                                    " получает $2000k за проход круга!");
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Зачисление: $2000k. Баланс игрока " + player.getName()+
+                                    ": $" + player.getCash() + "k." + ANSI_RESET);
+
                             player.setCash(player.getCash() + 2000);
                             playerNewCardIndex = playerNewCardIndex % cardsOfMap.size();
                         }
                         player.setCurrCardIndex(playerNewCardIndex);
                         int playerCardIndexAfterMove = player.getCurrCardIndex();
                         Card playerCardAfterMove = cardsOfMap.get(playerCardIndexAfterMove);
-                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName());
+                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас!");
+                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
                         Board.writePlayersMapping(players);
 
                         if (playerCardAfterMove instanceof JailCard) {

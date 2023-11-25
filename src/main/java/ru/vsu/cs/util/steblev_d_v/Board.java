@@ -30,12 +30,10 @@ public class Board {
     public static List<Integer> lastIndexes = new ArrayList<>();
     public static List<String> deletedELements = new ArrayList<>();
 
-
 //    static List<String> board = Arrays.asList(YELLOW_BACKGROUND + BLACK_BOLD + " Старт " + ANSI_RESET, "1", "2", "3", "4", "5", "6", "7", "8", "9", YELLOW_BACKGROUND + BLACK_BOLD + "Путешествие" + ANSI_RESET,
 //            "11", "12", "13", "14", "15", "16", "17", "18", "19", YELLOW_BACKGROUND + BLACK_BOLD + "  Джекпот  " + ANSI_RESET,
 //            "21", "22", "23", "24", "25", "26", "27", "28", "29", YELLOW_BACKGROUND + BLACK_BOLD + "Тюрьма" + ANSI_RESET,
 //            "31", "32", "33", "34", "35", "36", "37", "38", "39", "40");
-
 
     static List<String> board = Arrays.asList(YELLOW_BACKGROUND + BLACK_BOLD + " START\uD83C\uDFC1" + ANSI_RESET, PURPLE_BACKGROUND + BLACK_BOLD + " CHANEL " + ANSI_RESET,
             GREEN_BACKGROUND_BRIGHT + BLACK_BOLD + "  ?  " + ANSI_RESET, PURPLE_BACKGROUND + BLACK_BOLD + "HUGO BOSS" + ANSI_RESET, GREEN_BOLD + BLACK_BACKGROUND + "   \uD83D\uDCB5   " + ANSI_RESET + ANSI_RESET, YELLOW_BACKGROUND + BLACK_BOLD
@@ -63,8 +61,8 @@ public class Board {
             System.out.print(board.get(k) + " ");
         }
         System.out.println();
-        for (int k = 11; k < 20; k++) {
-            System.out.print(board.get(k + 20));
+        for (int k = 11, j = board.size() - 2; k < 20 && j > 29; k++, j--) {
+            System.out.print(board.get(j));
             System.out.println("                                                                         " + board.get(k));
         }
         for (int g = board.size() - 11; g >= 20; g--) {
@@ -74,19 +72,23 @@ public class Board {
 
 
     public static void writePlayersMapping(List<Player> players) {
-        if (GameLogic.numberOfMove == 1) {
+        if (GameLogic.numberOfMove == 1) { // Проверка на 1 ход
             for (int i = 0; i < players.size(); i++) {
                 lastIndexes.add(0);
                 deletedELements.add(board.get(players.get(i).getCurrCardIndex()));
             }
         }
-
         for (int i = 0; i < players.size(); i++) {
+            /*
+            Возвращаем удалённый элемент на место, до этого записав его индекс и сам элемент в список.
+             */
             board.set(lastIndexes.get(i), deletedELements.get(i));
-            lastIndexes.set(i, players.get(i).getCurrCardIndex());
-            deletedELements.set(i, board.get(players.get(i).getCurrCardIndex()));
-            System.out.println(deletedELements.get(i));
+            lastIndexes.set(i, players.get(i).getCurrCardIndex()); // Запоминаем новый индекс удалённого элемента
+            deletedELements.set(i, board.get(players.get(i).getCurrCardIndex())); // Запоминаем новый удалённый элемент
             board.set(players.get(i).getCurrCardIndex(), WHITE_BOLD + players.get(i).getName() + ANSI_RESET);
+            /*
+            Запомнили всё, что нужно и только теперь можем поставить маркер игрока на поле, где он стоит.
+             */
         }
     }
 }

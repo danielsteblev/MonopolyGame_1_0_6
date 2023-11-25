@@ -1,6 +1,5 @@
 package ru.vsu.cs.util.steblev_d_v;
 
-import ru.vsu.cs.util.steblev_d_v.cards.BusinessCard;
 import ru.vsu.cs.util.steblev_d_v.cards.CompanyCard;
 
 import java.util.ArrayList;
@@ -72,5 +71,10 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return  name;
     }
 }

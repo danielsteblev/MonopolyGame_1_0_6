@@ -28,7 +28,7 @@ public class GameMoveStatus {
     }
 
     public static void getStatusAboutMove(List<GameMoveStatus> statuses, int numberMove){
-        if(numberMove == 1){
+        if(numberMove == 0){
             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Ошибка! История ходов ещё неизвестна." + ANSI_RESET);
             return;
         }
