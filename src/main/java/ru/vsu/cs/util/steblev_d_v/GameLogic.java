@@ -289,6 +289,9 @@ public class GameLogic {
                         scnLine.nextLine();
                         System.out.println();
                         break;
+
+                    default:
+                        return;
                 }
             }
         }

@@ -85,7 +85,8 @@ public class Board {
             board.set(lastIndexes.get(i), deletedELements.get(i));
             lastIndexes.set(i, players.get(i).getCurrCardIndex()); // Запоминаем новый индекс удалённого элемента
             deletedELements.set(i, board.get(players.get(i).getCurrCardIndex())); // Запоминаем новый удалённый элемент
-            board.set(players.get(i).getCurrCardIndex(), WHITE_BOLD + players.get(i).getName() + ANSI_RESET);
+            board.set(players.get(i).getCurrCardIndex(),  CYAN_BACKGROUND_BRIGHT +  BLACK_BOLD +  players.get(i).getName() + ANSI_RESET);
+
             /*
             Запомнили всё, что нужно и только теперь можем поставить маркер игрока на поле, где он стоит.
              */
