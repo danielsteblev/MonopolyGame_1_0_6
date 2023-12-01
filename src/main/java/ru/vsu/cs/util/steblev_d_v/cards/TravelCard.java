@@ -4,8 +4,8 @@ import ru.vsu.cs.util.steblev_d_v.Player;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class TraverCard extends Card {
-    public TraverCard( int locationIndex) {
+public class TravelCard extends Card {
+    public TravelCard(int locationIndex) {
         super(null, locationIndex);
     }
 

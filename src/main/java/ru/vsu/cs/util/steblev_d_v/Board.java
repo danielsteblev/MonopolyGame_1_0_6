@@ -1,12 +1,24 @@
 package ru.vsu.cs.util.steblev_d_v;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import ru.vsu.cs.util.steblev_d_v.cards.Card;
+
+import java.util.*;
 
 
-public class Board {
+public class Board{
+    private List<Card> board1 = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "board1=" + board1 +
+                '}';
+    }
+
+    public List<Card> getBoard() {
+        return board1;
+    }
+
     public static final String BLACK_BOLD = "\033[1;30m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String GREEN_BOLD = "\033[1;32m";  // GREEN

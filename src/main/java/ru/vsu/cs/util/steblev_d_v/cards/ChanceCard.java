@@ -7,7 +7,7 @@ public class ChanceCard extends Card {
 
     private static List<Integer> chanceCardLocations = new ArrayList<>();
     public ChanceCard(int locationIndex) {
-        super("ШАНС", locationIndex);
+        super("chance", locationIndex);
         chanceCardLocations.add(locationIndex);
     }
 }

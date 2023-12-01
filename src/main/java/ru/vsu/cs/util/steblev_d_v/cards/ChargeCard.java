@@ -4,7 +4,7 @@ import ru.vsu.cs.util.steblev_d_v.Player;
 
 public class ChargeCard extends Card {
     public ChargeCard(int locationIndex) {
-        super(null, locationIndex);
+        super("charge", locationIndex);
     }
 
     public void getCash(Player player){

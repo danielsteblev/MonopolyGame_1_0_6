@@ -1,9 +1,7 @@
 package ru.vsu.cs.util.steblev_d_v;
 
-import com.fasterxml.jackson.core.ObjectCodec;
 import ru.vsu.cs.util.steblev_d_v.cards.*;
 
-import java.io.File;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -207,9 +205,9 @@ public class GameLogic {
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Твой выигрыш: $" + JackpotCard.getJackpot() + "k. Твой баланс: $" + player.getCash() + "k." + ANSI_RESET);
 
 
-                        } else if (playerCardAfterMove instanceof TraverCard) {
-                            TraverCard playerCardAfterMove1 = (TraverCard) playerCardAfterMove;
-                            TraverCard.goTravel(player);
+                        } else if (playerCardAfterMove instanceof TravelCard) {
+                            TravelCard playerCardAfterMove1 = (TravelCard) playerCardAfterMove;
+                            TravelCard.goTravel(player);
                         } else if (playerCardAfterMove instanceof CompanyCard) {
                             CompanyCard playerCardAfterMove1 = (CompanyCard) playerCardAfterMove;
                             if (playerCardAfterMove1.isLocationOwned()) {
@@ -356,7 +354,7 @@ public class GameLogic {
         cardsOfMap.add(new ChanceCard(7));
         cardsOfMap.add(new CompanyCard("Puma", 8, 1000, 60));
         cardsOfMap.add(new CompanyCard("Lacoste", 9, 1200, 80));
-        cardsOfMap.add(new TraverCard(10));
+        cardsOfMap.add(new TravelCard(10));
         cardsOfMap.add(new CompanyCard("VK", 11, 1400, 100));
         cardsOfMap.add(new CompanyCard("Rockstar Games", 12, 1500, (dice1.getDiceResult() + dice2.getDiceResult()) * 100));
         cardsOfMap.add(new CompanyCard("Facebook", 13, 1400, 100));
