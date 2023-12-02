@@ -1,11 +1,10 @@
 package ru.vsu.cs.util.steblev_d_v;
 
-import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static ru.vsu.cs.util.steblev_d_v.GameLogic.*;
+import static ru.vsu.cs.util.steblev_d_v.GameSession.*;
 
 public class GameMoveStatus {
     private Date date;

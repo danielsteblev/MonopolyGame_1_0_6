@@ -1,46 +1,43 @@
-# Токены: card - карта, chance - шанс, charge - сбор, comp - компания, jail - тюрьма, trav - приключение
-# Для добавления CompanyCard аргументы следующие: ["name", price, rentPrice]
-# Для добавления Card аргументы: ["name"], все остальные - без аргументов.
-# Если "name" - составное, используйте "_" для разделения.
-card START
-comp CHANEL 600 20
-chance
-comp HUGO_BOSS 600 40
-charge
-comp MERSEDES 2000 250
-comp ADIDAS 1000 60
-chance
-comp PUMA 1000 60
-comp LACOSTE 1200 80
-trav
-comp VK 1400 100
-comp ROCKSTAR 1500 1000
-comp FACEBOOK 1400 100
-comp TWITTER 1600 120
-comp AUDI 2000 250
-comp COLA 1800 140
-chance
-comp PEPSI 1800 140
-comp FANTA 2000 160
-jac
-comp AIRLINES 2200 180
-chance
-comp LUFTHANSA 2200 180
-comp AIRWAYS 2400 200
-comp FORD 2000 250
-comp MCDON 2600 220
-comp BURGER 2600 220
-comp ROVIO 1500 1000
-comp KFC 2800 240
-jail
-comp INN 3000 260
-comp RADISSON 3000 260
-chance
-comp NOVOTEL 3200 280
-comp ROVER 2000 250
-charge
-comp APPLE 3500 350
-chance
-comp NOKIA 4000 500
+card START🏁 yellow 0
+comp CHANEL 600 20 purple 0
+chance green 1
+comp HUGO_BOSS 600 40 purple 0
+charge black 0
+comp MERSEDES 2000 250 yellow 0
+comp ADIDAS 1000 60 yellow 1
+chance green 1
+comp PUMA 1000 60 yellow 1
+comp LACOSTE 1200 80 yellow 1
+trav yellow 0
+comp VK 1400 100 blue 1
+comp ROCKSTAR 1500 1000 red 1
+comp FACEBOOK 1400 100 blue 1
+comp TWITTER 1600 120 blue 1
+comp AUDI 2000 250 yellow 0
+comp COLA 1800 140 cyan 0
+chance green 1
+comp PEPSI 1800 140 cyan 0
+comp FANTA 2000 160 cyan 0
+jac yellow 0
+comp AIRLINES 2200 180 green 0
+chance green 1
+comp LUFTHANSA 2200 180 green 0
+comp AIRWAYS 2400 200 green 0
+comp FORD 2000 250 yellow 0
+comp MCDON 2600 220 yellow 1
+comp BURGER 2600 220 yellow 1
+comp ROVIO 1500 1000 red 1
+comp KFC 2800 240 yellow 1
+jail yellow 0
+comp INN 3000 260 purple 1
+comp RADISSON 3000 260 purple 1
+chance green 1
+comp NOVOTEL 3200 280 purple 1
+comp ROVER 2000 250 yellow 0
+charge black 0
+comp APPLE 3500 350 white 0
+chance green 1
+comp NOKIA 4000 500 white 0
+
 
 

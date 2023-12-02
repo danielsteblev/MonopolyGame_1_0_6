@@ -5,11 +5,11 @@ import ru.vsu.cs.util.steblev_d_v.cards.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GameLogic {
+public class GameSession {
     private List<Player> players = new ArrayList<>();
     private List<GameMoveStatus> statuses = new ArrayList<>();
     public static int numberOfMove = 1;
-    private List<Card> cardsOfMap = new ArrayList<>();
+//    private List<Card> cardsOfMap = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -20,6 +20,12 @@ public class GameLogic {
     public static final String BLACK_BOLD = "\033[1;30m";
     public static final String WHITE_BACKGROUND = "\033[47m";
     public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
+
+    Board board;
+
+    public GameSession(Board board) {
+        this.board = board;
+    }
 
     Dice dice1 = new Dice();
     Dice dice2 = new Dice();
@@ -107,7 +113,7 @@ public class GameLogic {
         } while (i <= playerNum);
 
 
-        generateMap();
+//        generateMap();
 
         System.out.println();
 
@@ -173,21 +179,21 @@ public class GameLogic {
                         }
                         int playerNewCardIndex = player.getCurrCardIndex() + diceResult;
 //                        numberOfMove++;
-                        if (playerNewCardIndex >= cardsOfMap.size()) {
+                        if (playerNewCardIndex >= board.getBoard().size()) {
                             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под ником " + player.getName() +
                                     " получает $2000k за проход круга!");
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Зачисление: $2000k. Баланс игрока " + player.getName()+
                                     ": $" + player.getCash() + "k." + ANSI_RESET);
 
                             player.setCash(player.getCash() + 2000);
-                            playerNewCardIndex = playerNewCardIndex % cardsOfMap.size();
+                            playerNewCardIndex = playerNewCardIndex % board.getBoard().size();
                         }
                         player.setCurrCardIndex(playerNewCardIndex);
                         int playerCardIndexAfterMove = player.getCurrCardIndex();
-                        Card playerCardAfterMove = cardsOfMap.get(playerCardIndexAfterMove);
+                        Card playerCardAfterMove = board.getBoard().get(playerCardIndexAfterMove);
                         System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас!");
                         System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
-                        Board.writePlayersMapping(players);
+                        board.writePlayersMapping(players);
 
                         if (playerCardAfterMove instanceof JailCard) {
                             JailCard playerCardAfterMove1 = (JailCard) playerCardAfterMove;
@@ -280,7 +286,7 @@ public class GameLogic {
                         break;
 
                     case 4:
-                        Board.renderBoard();
+                        board.render();
                         System.out.println();
                         System.out.println();
                         System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Для возврата в меню нажмите любую кнопку." + ANSI_RESET);
@@ -343,48 +349,48 @@ public class GameLogic {
         return false;
     }
 
-    public void generateMap() {
-        cardsOfMap.add(new Card("START", 0));
-        cardsOfMap.add(new CompanyCard("Chanel", 1, 600, 20));
-        cardsOfMap.add(new ChanceCard(2));
-        cardsOfMap.add(new CompanyCard("Hugo Boss", 3, 600, 40));
-        cardsOfMap.add(new ChargeCard(4));
-        cardsOfMap.add(new CompanyCard("Mersedes", 5, 2000, 250));
-        cardsOfMap.add(new CompanyCard("Adidas", 6, 1000, 60));
-        cardsOfMap.add(new ChanceCard(7));
-        cardsOfMap.add(new CompanyCard("Puma", 8, 1000, 60));
-        cardsOfMap.add(new CompanyCard("Lacoste", 9, 1200, 80));
-        cardsOfMap.add(new TravelCard(10));
-        cardsOfMap.add(new CompanyCard("VK", 11, 1400, 100));
-        cardsOfMap.add(new CompanyCard("Rockstar Games", 12, 1500, (dice1.getDiceResult() + dice2.getDiceResult()) * 100));
-        cardsOfMap.add(new CompanyCard("Facebook", 13, 1400, 100));
-        cardsOfMap.add(new CompanyCard("Twitter", 14, 1600, 120));
-        cardsOfMap.add(new CompanyCard("Audi", 15, 2000, 250));
-        cardsOfMap.add(new CompanyCard("Coca Cola", 16, 1800, 140));
-        cardsOfMap.add(new ChanceCard(17));
-        cardsOfMap.add(new CompanyCard("Pepsi", 18, 1800, 140));
-        cardsOfMap.add(new CompanyCard("Fanta", 19, 2000, 160));
-        cardsOfMap.add(new JackpotCard(20));
-        cardsOfMap.add(new CompanyCard("American Airlines", 21, 2200, 180));
-        cardsOfMap.add(new ChanceCard(22));
-        cardsOfMap.add(new CompanyCard("Lufthansa", 23, 2200, 180));
-        cardsOfMap.add(new CompanyCard("British Airways", 24, 2400, 200));
-        cardsOfMap.add(new CompanyCard("Ford", 25, 2000, 250));
-        cardsOfMap.add(new CompanyCard("McDonalds", 26, 2600, 220));
-        cardsOfMap.add(new CompanyCard("Burger King", 27, 2600, 220));
-        cardsOfMap.add(new CompanyCard("Rovio Games", 28, 1500, (dice1.getDiceResult() + dice2.getDiceResult()) * 100));
-        cardsOfMap.add(new CompanyCard("KFC", 29, 2800, 240));
-        cardsOfMap.add(new JailCard(30, 0));
-        cardsOfMap.add(new CompanyCard("Holiday Inn", 31, 3000, 260));
-        cardsOfMap.add(new CompanyCard("Radisson", 32, 3000, 260));
-        cardsOfMap.add(new ChanceCard(33));
-        cardsOfMap.add(new CompanyCard("Novotel", 34, 3200, 280));
-        cardsOfMap.add(new CompanyCard("Land Rover", 35, 2000, 250));
-        cardsOfMap.add(new ChargeCard(36));
-        cardsOfMap.add(new CompanyCard("Apple", 37, 3500, 350));
-        cardsOfMap.add(new ChanceCard(38));
-        cardsOfMap.add(new CompanyCard("Nokia", 39, 4000, 500));
-    }
+//    public void generateMap() {
+//        cardsOfMap.add(new Card("START", 0));
+//        cardsOfMap.add(new CompanyCard("Chanel", 1, 600, 20));
+//        cardsOfMap.add(new ChanceCard(2));
+//        cardsOfMap.add(new CompanyCard("Hugo Boss", 3, 600, 40));
+//        cardsOfMap.add(new ChargeCard(4));
+//        cardsOfMap.add(new CompanyCard("Mersedes", 5, 2000, 250));
+//        cardsOfMap.add(new CompanyCard("Adidas", 6, 1000, 60));
+//        cardsOfMap.add(new ChanceCard(7));
+//        cardsOfMap.add(new CompanyCard("Puma", 8, 1000, 60));
+//        cardsOfMap.add(new CompanyCard("Lacoste", 9, 1200, 80));
+//        cardsOfMap.add(new TravelCard(10));
+//        cardsOfMap.add(new CompanyCard("VK", 11, 1400, 100));
+//        cardsOfMap.add(new CompanyCard("Rockstar Games", 12, 1500, (dice1.getDiceResult() + dice2.getDiceResult()) * 100));
+//        cardsOfMap.add(new CompanyCard("Facebook", 13, 1400, 100));
+//        cardsOfMap.add(new CompanyCard("Twitter", 14, 1600, 120));
+//        cardsOfMap.add(new CompanyCard("Audi", 15, 2000, 250));
+//        cardsOfMap.add(new CompanyCard("Coca Cola", 16, 1800, 140));
+//        cardsOfMap.add(new ChanceCard(17));
+//        cardsOfMap.add(new CompanyCard("Pepsi", 18, 1800, 140));
+//        cardsOfMap.add(new CompanyCard("Fanta", 19, 2000, 160));
+//        cardsOfMap.add(new JackpotCard(20));
+//        cardsOfMap.add(new CompanyCard("American Airlines", 21, 2200, 180));
+//        cardsOfMap.add(new ChanceCard(22));
+//        cardsOfMap.add(new CompanyCard("Lufthansa", 23, 2200, 180));
+//        cardsOfMap.add(new CompanyCard("British Airways", 24, 2400, 200));
+//        cardsOfMap.add(new CompanyCard("Ford", 25, 2000, 250));
+//        cardsOfMap.add(new CompanyCard("McDonalds", 26, 2600, 220));
+//        cardsOfMap.add(new CompanyCard("Burger King", 27, 2600, 220));
+//        cardsOfMap.add(new CompanyCard("Rovio Games", 28, 1500, (dice1.getDiceResult() + dice2.getDiceResult()) * 100));
+//        cardsOfMap.add(new CompanyCard("KFC", 29, 2800, 240));
+//        cardsOfMap.add(new JailCard(30, 0));
+//        cardsOfMap.add(new CompanyCard("Holiday Inn", 31, 3000, 260));
+//        cardsOfMap.add(new CompanyCard("Radisson", 32, 3000, 260));
+//        cardsOfMap.add(new ChanceCard(33));
+//        cardsOfMap.add(new CompanyCard("Novotel", 34, 3200, 280));
+//        cardsOfMap.add(new CompanyCard("Land Rover", 35, 2000, 250));
+//        cardsOfMap.add(new ChargeCard(36));
+//        cardsOfMap.add(new CompanyCard("Apple", 37, 3500, 350));
+//        cardsOfMap.add(new ChanceCard(38));
+//        cardsOfMap.add(new CompanyCard("Nokia", 39, 4000, 500));
+//    }
 
     public String getJackpotSymbols() {
         List<String> symbols = new ArrayList<>();

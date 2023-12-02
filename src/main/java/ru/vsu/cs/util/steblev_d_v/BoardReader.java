@@ -15,9 +15,9 @@ public class BoardReader {
     private static final String TRAVEL_CARD_TOKEN = "trav";
 
     public static Board read(String fileContent) throws BoardReaderException {
-         Board board = new Board();
+        Board board = new Board();
 
-        int lineInd = -4;
+        int lineInd = 0;
         Scanner scanner = new Scanner(fileContent);
         while (scanner.hasNextLine()) {
             final String line = scanner.nextLine();
@@ -38,7 +38,8 @@ public class BoardReader {
                 case JACKPOT_CARD_TOKEN -> board.getBoard().add(parseJackpotCard(wordsInLine, lineInd));
                 case JAIL_CARD_TOKEN -> board.getBoard().add(parseJailCard(wordsInLine, lineInd));
                 case TRAVEL_CARD_TOKEN -> board.getBoard().add(parseTravelCard(wordsInLine, lineInd));
-                default -> {}
+                default -> {
+                }
             }
         }
         return board;
@@ -46,36 +47,40 @@ public class BoardReader {
 
     protected static Card parseCard(final ArrayList<String> wordsInLineWithoutToken, int lineInd) throws BoardReaderException {
         try {
-            return new Card(wordsInLineWithoutToken.get(0), lineInd - 1);
+            return new Card(wordsInLineWithoutToken.get(0),
+                    lineInd - 1,
+                    GraphicsUtils.convertColorNameToConsole(wordsInLineWithoutToken.get(1), getBoolean(wordsInLineWithoutToken.get(2))));
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new BoardReaderException("Failed to parse String value.", lineInd);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BoardReaderException("Too few card arguments.", lineInd);
         }
     }
 
     protected static Card parseChanceCard(final ArrayList<String> wordsInLineWithoutToken, int lineInd) throws BoardReaderException {
         try {
-            return new ChanceCard(lineInd - 1);
+            return new ChanceCard(lineInd - 1,
+                    GraphicsUtils.convertColorNameToConsole(wordsInLineWithoutToken.get(0), getBoolean(wordsInLineWithoutToken.get(1))));
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new BoardReaderException("Failed to parse String value.", lineInd);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BoardReaderException("Too few card arguments.", lineInd);
         }
     }
 
     protected static Card parseChargeCard(final ArrayList<String> wordsInLineWithoutToken, int lineInd) throws BoardReaderException {
         try {
-            return new ChargeCard(lineInd - 1);
+            return new ChargeCard(lineInd - 1,
+                    GraphicsUtils.convertColorNameToConsole(wordsInLineWithoutToken.get(0), getBoolean(wordsInLineWithoutToken.get(1))));
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new BoardReaderException("Failed to parse String value.", lineInd);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BoardReaderException("Too few card arguments.", lineInd);
         }
     }
@@ -86,49 +91,58 @@ public class BoardReader {
                     wordsInLineWithoutToken.get(0),
                     lineInd - 1,
                     Integer.parseInt(wordsInLineWithoutToken.get(1)),
-                    Integer.parseInt(wordsInLineWithoutToken.get(2))
-                    );
+                    Integer.parseInt(wordsInLineWithoutToken.get(2)),
+                    GraphicsUtils.convertColorNameToConsole(wordsInLineWithoutToken.get(3), getBoolean(wordsInLineWithoutToken.get(4))));
 
-        } catch(NumberFormatException e) {
+
+        } catch (NumberFormatException e) {
             throw new BoardReaderException("Failed to parse String value.", lineInd);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BoardReaderException("Too few card arguments.", lineInd);
         }
     }
 
     protected static Card parseJackpotCard(final ArrayList<String> wordsInLineWithoutToken, int lineInd) throws BoardReaderException {
         try {
-            return new JackpotCard(lineInd - 1);
+            return new JackpotCard(lineInd - 1,
+                    GraphicsUtils.convertColorNameToConsole(wordsInLineWithoutToken.get(0), getBoolean(wordsInLineWithoutToken.get(1))));
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new BoardReaderException("Failed to parse String value.", lineInd);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BoardReaderException("Too few card arguments.", lineInd);
         }
     }
 
     protected static Card parseJailCard(final ArrayList<String> wordsInLineWithoutToken, int lineInd) throws BoardReaderException {
         try {
-            return new JailCard(lineInd - 1, 0);
+            return new JailCard(lineInd - 1, 0,
+                    GraphicsUtils.convertColorNameToConsole(wordsInLineWithoutToken.get(0), getBoolean(wordsInLineWithoutToken.get(1))));
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new BoardReaderException("Failed to parse String value.", lineInd);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BoardReaderException("Too few card arguments.", lineInd);
         }
     }
+
     protected static Card parseTravelCard(final ArrayList<String> wordsInLineWithoutToken, int lineInd) throws BoardReaderException {
         try {
-            return new TravelCard(lineInd - 1);
+            return new TravelCard(lineInd - 1,
+                    GraphicsUtils.convertColorNameToConsole(wordsInLineWithoutToken.get(0),getBoolean(wordsInLineWithoutToken.get(1))));
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new BoardReaderException("Failed to parse String value.", lineInd);
 
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BoardReaderException("Too few card arguments.", lineInd);
         }
+    }
+
+    public static boolean getBoolean(String value) {
+        return !value.equals("0");
     }
 }

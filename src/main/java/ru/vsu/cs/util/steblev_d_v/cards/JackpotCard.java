@@ -5,8 +5,8 @@ import ru.vsu.cs.util.steblev_d_v.Player;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class JackpotCard extends Card {
-    public JackpotCard( int locationIndex) {
-        super("ДЖЕКПОТ", locationIndex);
+    public JackpotCard( int locationIndex, String color) {
+        super("JACKPOT\uD83C\uDFB0", locationIndex, color);
     }
 
     private static int jackpot;

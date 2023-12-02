@@ -8,8 +8,8 @@ public class CompanyCard extends Card {
     private int rentPrice;
     private Player owner;
 
-    public CompanyCard(String name, int locationIndex, int price, int rentPrice) {
-        super(name, locationIndex);
+    public CompanyCard(String name, int locationIndex, int price, int rentPrice, String color) {
+        super(name, locationIndex, color);
         this.price = price;
         this.rentPrice = rentPrice;
         this.owner = null;

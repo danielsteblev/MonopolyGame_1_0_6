@@ -9,8 +9,8 @@ public class JailCard extends Card {
         return type;
     }
 
-    public JailCard(int locationIndex, int type) {
-        super("Тюряга", locationIndex);
+    public JailCard(int locationIndex, int type, String color) {
+        super("JAIL\uD83D\uDC6E", locationIndex, color);
         this.type = type;
         if(type == 0){
             jailCardInd = locationIndex;

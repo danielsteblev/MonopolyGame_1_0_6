@@ -3,10 +3,20 @@ package ru.vsu.cs.util.steblev_d_v.cards;
 public class Card {
     String name;
     private int locationIndex = 0;
+    String color;
 
-    public Card(String name, int locationIndex) {
+    public Card(String name, int locationIndex, String color) {
         this.name = name;
         this.locationIndex = locationIndex;
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getName() {

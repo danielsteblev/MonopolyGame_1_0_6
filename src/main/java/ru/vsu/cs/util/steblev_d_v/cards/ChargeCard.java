@@ -3,8 +3,8 @@ package ru.vsu.cs.util.steblev_d_v.cards;
 import ru.vsu.cs.util.steblev_d_v.Player;
 
 public class ChargeCard extends Card {
-    public ChargeCard(int locationIndex) {
-        super("charge", locationIndex);
+    public ChargeCard(int locationIndex, String color) {
+        super("\uD83D\uDCB5", locationIndex, color);
     }
 
     public void getCash(Player player){
