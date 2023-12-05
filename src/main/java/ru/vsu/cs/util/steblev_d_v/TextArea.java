@@ -9,36 +9,26 @@ public class TextArea implements GraphicsManagerInterface {
     private String text;
     private final String fontColor;
     private final String backgroundColor;
-    private String print;
 
-    public TextArea(String text, String fontColor, String backgroundColor, String print) {
+    public TextArea(String text, String fontColor, String backgroundColor) {
         this.text = text;
         this.fontColor = fontColor;
         this.backgroundColor = backgroundColor;
-        this.print = print;
     }
 
     public void render() {
-        switch (this.getPrint()) {
-            case "row":
                 System.out.print(backgroundColor + fontColor + text + ANSI_RESET + " ");
-                break;
-
-            case "col":
-                System.out.println(backgroundColor + fontColor + text + ANSI_RESET + " ");
-                break;
-        }
     }
 
-    public void renderCentralLines(TextArea textArea, TextArea textArea1, List<Card> board) {
+    public void renderCentralLines(TextArea textArea, TextArea textArea1, List<Card> board, List<TextArea> upperLine) {
         List<Integer> countSymbols = new ArrayList<>();
         StringBuilder spaces = new StringBuilder();
-        int sum = 0;
-        for (int i = 1; i <= board.size() / 4; i++) {
-            sum += board.get(i).getName().length();
-            sum++;
+        int sumSymbols = 0;
+        for (int i = 1; i < upperLine.size() - 1; i++) {
+            sumSymbols += upperLine.get(i).getText().length();
+            sumSymbols++;
         }
-        for (int i = 0; i <= sum; i++) {
+        for (int i = 0; i <= sumSymbols; i++) {
             spaces.append(" ");
         }
         System.out.println(textArea.backgroundColor + textArea.fontColor + textArea.text
@@ -67,8 +57,5 @@ public class TextArea implements GraphicsManagerInterface {
     }
     public String getText() {
         return text;
-    }
-    public String getPrint() {
-        return print;
     }
 }

@@ -25,7 +25,6 @@ public interface GraphicsManagerInterface {
     String text = null;
     String fontColor = null;
     String backgroundColor = null;
-    boolean isBold = false;
 
     void render();
 }

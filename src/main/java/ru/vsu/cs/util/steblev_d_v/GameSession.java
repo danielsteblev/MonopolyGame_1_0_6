@@ -9,7 +9,7 @@ public class GameSession {
     private List<Player> players = new ArrayList<>();
     private List<GameMoveStatus> statuses = new ArrayList<>();
     public static int numberOfMove = 1;
-//    private List<Card> cardsOfMap = new ArrayList<>();
+    //    private List<Card> cardsOfMap = new ArrayList<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -120,182 +120,185 @@ public class GameSession {
 
         while (gameCoutined(players)) {
             for (Player player : players) {
-                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Панель управления игрока " + WHITE_BACKGROUND + CYAN_BOLD_BRIGHT + player.getName() + "                " + ANSI_RESET);
-                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "1. Вернуться в игру." + "                         " + ANSI_RESET );
-                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "2. Мой баланс."+  "                               " + ANSI_RESET);
-                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "3. Получить информацию о ходе." + "               " +  ANSI_RESET);
-                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "4. Открыть мини-карту." + "                       " + ANSI_RESET);
-                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите значение (от 1 до 4):" + "                " + ANSI_RESET);
-                int answerMenuPlayer = scanner.nextInt();
-                switch (answerMenuPlayer) {
-                    case 1:
-                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под именем " + player.getName() + " сейчас твой ход! Бросай кубики!");
-                        if (player.isInJail()) {
-                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О нет! Кажется игрок " + player.getName() + " сейчас в тюрьме.");
-                            player.setInJail(false);
-                            continue;
-                        }
-                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Нажмите любую кнопку для того, чтобы бросить кости." + ANSI_RESET);
-                        scnLine.nextLine();
-                        dice1.throwDice();
-                        dice2.throwDice();
-                        System.out.println();
-
-                        int diceResult = dice1.getDiceResult() + dice2.getDiceResult();
-                        switch (diceResult) {
-                            case 2:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚀⚀ Тебе выпало: 2" + ANSI_RESET);
-                                break;
-                            case 3:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚀⚁ Тебе выпало: 3" + ANSI_RESET);
-                                break;
-                            case 4:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚀ Тебе выпало: 4" + ANSI_RESET);
-                                break;
-                            case 5:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚁ Тебе выпало: 5" + ANSI_RESET);
-                                break;
-                            case 6:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚄⚀ Тебе выпало: 6" + ANSI_RESET);
-                                break;
-                            case 7:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚃⚂ Тебе выпало: 7" + ANSI_RESET);
-                                break;
-                            case 8:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚄ Тебе выпало: 8" + ANSI_RESET);
-                                break;
-                            case 9:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚂ Тебе выпало: 9" + ANSI_RESET);
-                                break;
-                            case 10:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚄⚄ Тебе выпало: 10" + ANSI_RESET);
-                                break;
-                            case 11: ;
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚄ Тебе выпало: 11" + ANSI_RESET);
-                                break;
-                            case 12:
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚅ Тебе выпало: 12" + ANSI_RESET);
-                                break;
-                        }
-                        int playerNewCardIndex = player.getCurrCardIndex() + diceResult;
-//                        numberOfMove++;
-                        if (playerNewCardIndex >= board.getBoard().size()) {
-                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под ником " + player.getName() +
-                                    " получает $2000k за проход круга!");
-                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Зачисление: $2000k. Баланс игрока " + player.getName()+
-                                    ": $" + player.getCash() + "k." + ANSI_RESET);
-
-                            player.setCash(player.getCash() + 2000);
-                            playerNewCardIndex = playerNewCardIndex % board.getBoard().size();
-                        }
-                        player.setCurrCardIndex(playerNewCardIndex);
-                        int playerCardIndexAfterMove = player.getCurrCardIndex();
-                        Card playerCardAfterMove = board.getBoard().get(playerCardIndexAfterMove);
-                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас!");
-                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
-                        board.writePlayersMapping(players);
-
-                        if (playerCardAfterMove instanceof JailCard) {
-                            JailCard playerCardAfterMove1 = (JailCard) playerCardAfterMove;
-                            if (playerCardAfterMove1.getType() != 0) {
-                                player.setInJail(true);
-                                player.setCurrCardIndex(JailCard.jailCardInd);
+                int answerMenuPlayer = 0;
+                while (!(answerMenuPlayer == 1)) {
+                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Панель управления игрока " + WHITE_BACKGROUND + CYAN_BOLD_BRIGHT + player.getName() + "                " + ANSI_RESET);
+                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "1. Вернуться в игру." + "                         " + ANSI_RESET);
+                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "2. Мой баланс." + "                               " + ANSI_RESET);
+                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "3. Получить информацию о ходе." + "               " + ANSI_RESET);
+                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "4. Открыть мини-карту." + "                       " + ANSI_RESET);
+                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите значение (от 1 до 4):" + "                " + ANSI_RESET);
+                    answerMenuPlayer = scanner.nextInt();
+                    switch (answerMenuPlayer) {
+                        case 1:
+                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под именем " + player.getName() + " сейчас твой ход! Бросай кубики!");
+                            if (player.isInJail()) {
+                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О нет! Кажется игрок " + player.getName() + " сейчас в тюрьме.");
+                                player.setInJail(false);
+                                continue;
                             }
-                        } else if (playerCardAfterMove instanceof JackpotCard) {
-                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ничего себе! Тебе повезло, ты попал на поле \uD83D\uDC51Джекпот\uD83D\uDC51. Давай проверим твою удачу!");
-                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "\uD83D\uDC8EНажмите любую кнопку, чтобы крутить барабан." + ANSI_RESET);
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Нажмите любую кнопку для того, чтобы бросить кости." + ANSI_RESET);
                             scnLine.nextLine();
-                            JackpotCard playerCardAfterMove1 = (JackpotCard) playerCardAfterMove;
-                            JackpotCard.getJackpot(player);
-                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + getJackpotSymbols());
-                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Твой выигрыш: $" + JackpotCard.getJackpot() + "k. Твой баланс: $" + player.getCash() + "k." + ANSI_RESET);
+                            dice1.throwDice();
+                            dice2.throwDice();
+                            System.out.println();
 
-
-                        } else if (playerCardAfterMove instanceof TravelCard) {
-                            TravelCard playerCardAfterMove1 = (TravelCard) playerCardAfterMove;
-                            TravelCard.goTravel(player);
-                        } else if (playerCardAfterMove instanceof CompanyCard) {
-                            CompanyCard playerCardAfterMove1 = (CompanyCard) playerCardAfterMove;
-                            if (playerCardAfterMove1.isLocationOwned()) {
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET
-                                        + "Данное поле занято игроком " + playerCardAfterMove1.getOwner().getName() + ".\nТебе придётся оплатить ренту, " +
-                                        "чтобы пойти дальше! С тебя $" + playerCardAfterMove1.getRentPrice() + "k.");
-                                int rent = playerCardAfterMove1.getRentPrice();
-                                int cashAfterRent = player.getCash() - rent;
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND
-                                        + "Ваш баланс: $" + player.getCash() + "k. Ваш баланс после оплаты ренты: $" + cashAfterRent + "k." + ANSI_RESET);
-
-
-                                player.setCash(cashAfterRent);
-                                playerCardAfterMove1.getOwner().setCash(playerCardAfterMove1.getOwner().getCash() + rent);
-                            } else {
-                                Scanner scn = new Scanner(System.in);
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Хей! У тебя есть: $" + player.getCash() + "k. Желаешь ли ты приобрести " + playerCardAfterMove1.getName() + " по цене: $" + playerCardAfterMove1.getPrice() + "k?");
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите ваш ответ (Y - для покупки, N - для отказа):" + ANSI_RESET);
-                                String playerChoice = scn.next();
-                                if (playerChoice.equals("Y") || playerChoice.equals("y")) {
-                                    int price = playerCardAfterMove1.getPrice();
-                                    if (player.getCash() < price) {
-                                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О нет! К сожалению, у тебя недостаточно средств. У меня есть пару советов, как заработать, я думаю они тебе помогут.");
-                                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "У вас недостаточно средств для покупки." + ANSI_RESET);
-
-                                    } else {
-                                        player.setCash(player.getCash() - price);
-                                        playerCardAfterMove1.setOwner(player);
-                                        player.getOwnedCompanies().add(playerCardAfterMove1);
-                                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Поздравляю тебя с приобретением " + playerCardAfterMove1.getName() + ". Я думаю ты обязательно окупишься!");
-                                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Игрок " + player.getName() + " приобрёл компанию " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
-                                    }
-                                }
-                                if(playerChoice.equals("N") || playerChoice.equals("n")){
-                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вы успешно отказались от покупки компании " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
-
-                                }
-
-
-
+                            int diceResult = dice1.getDiceResult() + dice2.getDiceResult();
+                            switch (diceResult) {
+                                case 2:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚀⚀ Тебе выпало: 2" + ANSI_RESET);
+                                    break;
+                                case 3:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚀⚁ Тебе выпало: 3" + ANSI_RESET);
+                                    break;
+                                case 4:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚀ Тебе выпало: 4" + ANSI_RESET);
+                                    break;
+                                case 5:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚁ Тебе выпало: 5" + ANSI_RESET);
+                                    break;
+                                case 6:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚄⚀ Тебе выпало: 6" + ANSI_RESET);
+                                    break;
+                                case 7:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚃⚂ Тебе выпало: 7" + ANSI_RESET);
+                                    break;
+                                case 8:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚂⚄ Тебе выпало: 8" + ANSI_RESET);
+                                    break;
+                                case 9:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚂ Тебе выпало: 9" + ANSI_RESET);
+                                    break;
+                                case 10:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚄⚄ Тебе выпало: 10" + ANSI_RESET);
+                                    break;
+                                case 11:
+                                    ;
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚄ Тебе выпало: 11" + ANSI_RESET);
+                                    break;
+                                case 12:
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "⚅⚅ Тебе выпало: 12" + ANSI_RESET);
+                                    break;
                             }
-                        }
-                        numberOfMove++;
-                        statuses.add(new GameMoveStatus(new Date(), numberOfMove, players));
+                            int playerNewCardIndex = player.getCurrCardIndex() + diceResult;
+//                        numberOfMove++;
+                            if (playerNewCardIndex >= board.getBoard().size()) {
+                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под ником " + player.getName() +
+                                        " получает $2000k за проход круга!");
+                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Зачисление: $2000k. Баланс игрока " + player.getName() +
+                                        ": $" + player.getCash() + "k." + ANSI_RESET);
 
-                        System.out.println();
-                        System.out.println();
-                        break;
+                                player.setCash(player.getCash() + 2000);
+                                playerNewCardIndex = playerNewCardIndex % board.getBoard().size();
+                            }
+                            player.setCurrCardIndex(playerNewCardIndex);
+                            int playerCardIndexAfterMove = player.getCurrCardIndex();
+                            Card playerCardAfterMove = board.getBoard().get(playerCardIndexAfterMove);
+                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас!");
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
+                            board.writePlayersMapping(players);
 
-                    case 2:
-                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "И снова ты, " + player.getName() + ", сейчас глянем что там у тебя по деньгам.");
-                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Ваш баланс: $" + player.getCash() + "k." + ANSI_RESET);
-                        System.out.println();
-                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Для возврата в меню нажмите любую кнопку." + ANSI_RESET);
-                        scnLine.nextLine();
-                        break;
+                            if (playerCardAfterMove instanceof JailCard) {
+                                JailCard playerCardAfterMove1 = (JailCard) playerCardAfterMove;
+                                if (playerCardAfterMove1.getType() != 0) {
+                                    player.setInJail(true);
+                                    player.setCurrCardIndex(JailCard.jailCardInd);
+                                }
+                            } else if (playerCardAfterMove instanceof JackpotCard) {
+                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ничего себе! Тебе повезло, ты попал на поле \uD83D\uDC51Джекпот\uD83D\uDC51. Давай проверим твою удачу!");
+                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "\uD83D\uDC8EНажмите любую кнопку, чтобы крутить барабан." + ANSI_RESET);
+                                scnLine.nextLine();
+                                JackpotCard playerCardAfterMove1 = (JackpotCard) playerCardAfterMove;
+                                JackpotCard.getJackpot(player);
+                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + getJackpotSymbols());
+                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Твой выигрыш: $" + JackpotCard.getJackpot() + "k. Твой баланс: $" + player.getCash() + "k." + ANSI_RESET);
 
 
-                    case 3:
-                        if(numberOfMove < 2){
-                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "История ходов пока неизвестна! Попробуйте позже." + ANSI_RESET);
+                            } else if (playerCardAfterMove instanceof TravelCard) {
+                                TravelCard playerCardAfterMove1 = (TravelCard) playerCardAfterMove;
+                                TravelCard.goTravel(player);
+                            } else if (playerCardAfterMove instanceof CompanyCard) {
+                                CompanyCard playerCardAfterMove1 = (CompanyCard) playerCardAfterMove;
+                                if (playerCardAfterMove1.isLocationOwned()) {
+                                    System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET
+                                            + "Данное поле занято игроком " + playerCardAfterMove1.getOwner().getName() + ".\nТебе придётся оплатить ренту, " +
+                                            "чтобы пойти дальше! С тебя $" + playerCardAfterMove1.getRentPrice() + "k.");
+                                    int rent = playerCardAfterMove1.getRentPrice();
+                                    int cashAfterRent = player.getCash() - rent;
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND
+                                            + "Ваш баланс: $" + player.getCash() + "k. Ваш баланс после оплаты ренты: $" + cashAfterRent + "k." + ANSI_RESET);
+
+
+                                    player.setCash(cashAfterRent);
+                                    playerCardAfterMove1.getOwner().setCash(playerCardAfterMove1.getOwner().getCash() + rent);
+                                } else {
+                                    Scanner scn = new Scanner(System.in);
+                                    System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Хей! У тебя есть: $" + player.getCash() + "k. Желаешь ли ты приобрести " + playerCardAfterMove1.getName() + " по цене: $" + playerCardAfterMove1.getPrice() + "k?");
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите ваш ответ (Y - для покупки, N - для отказа):" + ANSI_RESET);
+                                    String playerChoice = scn.next();
+                                    if (playerChoice.equals("Y") || playerChoice.equals("y")) {
+                                        int price = playerCardAfterMove1.getPrice();
+                                        if (player.getCash() < price) {
+                                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О нет! К сожалению, у тебя недостаточно средств. У меня есть пару советов, как заработать, я думаю они тебе помогут.");
+                                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "У вас недостаточно средств для покупки." + ANSI_RESET);
+
+                                        } else {
+                                            player.setCash(player.getCash() - price);
+                                            playerCardAfterMove1.setOwner(player);
+                                            player.getOwnedCompanies().add(playerCardAfterMove1);
+                                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Поздравляю тебя с приобретением " + playerCardAfterMove1.getName() + ". Я думаю ты обязательно окупишься!");
+                                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Игрок " + player.getName() + " приобрёл компанию " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
+                                        }
+                                    }
+                                    if (playerChoice.equals("N") || playerChoice.equals("n")) {
+                                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вы успешно отказались от покупки компании " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
+
+                                    }
+
+
+                                }
+                            }
+                            numberOfMove++;
+                            statuses.add(new GameMoveStatus(new Date(), numberOfMove, players));
+
+                            System.out.println();
                             System.out.println();
                             break;
-                        }
-                        int currNumOf = numberOfMove-1;
-                        System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О каком ходе хочешь получить информацию?");
-                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите номер хода от 1 до " + currNumOf + "." + "Текущий номер хода: "+ numberOfMove + ANSI_RESET);
-                        int searchNumOfMove = scanner.nextInt();
-                        GameMoveStatus.getStatusAboutMove(statuses, searchNumOfMove);
-                        break;
 
-                    case 4:
-                        board.render();
-                        System.out.println();
-                        System.out.println();
-                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Для возврата в меню нажмите любую кнопку." + ANSI_RESET);
-                        scnLine.nextLine();
-                        System.out.println();
-                        break;
+                        case 2:
+                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "И снова ты, " + player.getName() + ", сейчас глянем что там у тебя по деньгам.");
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Ваш баланс: $" + player.getCash() + "k." + ANSI_RESET);
+                            System.out.println();
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Для возврата в меню нажмите любую кнопку." + ANSI_RESET);
+                            scnLine.nextLine();
+                            break;
 
-                    default:
-                        return;
+
+                        case 3:
+                            if (numberOfMove < 2) {
+                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "История ходов пока неизвестна! Попробуйте позже." + ANSI_RESET);
+                                System.out.println();
+                                break;
+                            }
+                            int currNumOf = numberOfMove - 1;
+                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О каком ходе хочешь получить информацию?");
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите номер хода от 1 до " + currNumOf + "." + "Текущий номер хода: " + numberOfMove + ANSI_RESET);
+                            int searchNumOfMove = scanner.nextInt();
+                            GameMoveStatus.getStatusAboutMove(statuses, searchNumOfMove);
+                            break;
+
+                        case 4:
+                            board.render();
+                            System.out.println();
+                            System.out.println();
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Для возврата в меню нажмите любую кнопку." + ANSI_RESET);
+                            scnLine.nextLine();
+                            System.out.println();
+                            break;
+
+                        default:
+                            return;
+                    }
                 }
             }
         }
