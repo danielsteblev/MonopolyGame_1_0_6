@@ -13,14 +13,9 @@ public class App
         Path fileName = Path.of(
                 "C:\\JavaUniversity\\MonopolyGame\\src\\main\\java\\ru\\vsu\\cs\\util\\steblev_d_v\\boards\\board.txt");
         String fileContent = Files.readString(fileName);
-        System.out.println("Loading board ...");
-
         Board board = BoardReader.read(fileContent);
-        System.out.println(board.toString());
-
-
-        GameSession gameLogic = new GameSession(board);
-        gameLogic.startGame();
+        GameSession game = new GameSession(board);
+        game.startGame();
 
 
     }

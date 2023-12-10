@@ -20,7 +20,6 @@ public class GameSession {
     public static final String BLACK_BOLD = "\033[1;30m";
     public static final String WHITE_BACKGROUND = "\033[47m";
     public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
-
     Board board;
 
     public GameSession(Board board) {
@@ -83,31 +82,6 @@ public class GameSession {
                 System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ой! Похоже это имя уже занято. Попробуй ещё раз.");
                 continue;
             }
-//            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Теперь давай выберем фигурку, которой ты будешь играть.");
-//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Выберите фигуру игрока " + namePlayer + ": " + ANSI_RESET);
-//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "1. \uD83D\uDC53" + ANSI_RESET);
-//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "2. \uD83D\uDC51" + ANSI_RESET);
-//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "3. \uD83D\uDCF7" + ANSI_RESET);
-//            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "4. ✈\uFE0F" + ANSI_RESET);
-//            int answerFigure = scanner.nextInt();
-//            String figurePlayer = null;
-//            switch (answerFigure){
-//                case 1:
-//                    figurePlayer = "\uD83D\uDC53";
-//                    break;
-//                case 2:
-//                    figurePlayer = "\uD83D\uDC51";
-//                    break;
-//                case 3:
-//                    figurePlayer = "\uD83D\uDCF7";
-//                    break;
-//                case 4:
-//                    figurePlayer = "✈\uFE0F";
-//                    break;
-//                default:
-//                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вы ввели неправильное значение! Попробуйте повторить попытку." + ANSI_RESET);
-//            }
-
             players.add(new Bot(namePlayer));
             i++;
         } while (i <= playerNum);
@@ -181,7 +155,6 @@ public class GameSession {
                                     break;
                             }
                             int playerNewCardIndex = player.getCurrCardIndex() + diceResult;
-//                        numberOfMove++;
                             if (playerNewCardIndex >= board.getBoard().size()) {
                                 System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под ником " + player.getName() +
                                         " получает $2000k за проход круга!");
@@ -196,7 +169,6 @@ public class GameSession {
                             Card playerCardAfterMove = board.getBoard().get(playerCardIndexAfterMove);
                             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас!");
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
-                            board.writePlayersMapping(players);
 
                             if (playerCardAfterMove instanceof JailCard) {
                                 JailCard playerCardAfterMove1 = (JailCard) playerCardAfterMove;
@@ -246,6 +218,7 @@ public class GameSession {
                                             player.setCash(player.getCash() - price);
                                             playerCardAfterMove1.setOwner(player);
                                             player.getOwnedCompanies().add(playerCardAfterMove1);
+
                                             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Поздравляю тебя с приобретением " + playerCardAfterMove1.getName() + ". Я думаю ты обязательно окупишься!");
                                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Игрок " + player.getName() + " приобрёл компанию " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
                                         }
@@ -254,6 +227,7 @@ public class GameSession {
                                         System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вы успешно отказались от покупки компании " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
 
                                     }
+                                    board.writePlayersMapping(players);
 
 
                                 }
@@ -298,6 +272,23 @@ public class GameSession {
 
                         default:
                             return;
+
+                        case 5:
+                            List<Card> canBuild = new ArrayList<>();
+                            for (int j = 0; j < player.getOwnedCompanies().size(); j++) {
+                                int count = 0;
+                                for (int k = 1; k < player.getOwnedCompanies().size(); k++) {
+                                    if (player.getOwnedCompanies().get(i).getColor().equals(
+                                            player.getOwnedCompanies().get(k).getColor())) {
+                                        canBuild.add(player.getOwnedCompanies().get(i));
+                                        count++;
+                                    }
+                                }
+                                if(count == 3){
+                                    System.out.println("sucsess");
+                                }
+                            }
+
                     }
                 }
             }
@@ -314,7 +305,6 @@ public class GameSession {
                 if (player.getOwnedCompanies().size() > 0) {
                     System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О нет! Кажется игрок " + player.getName() + " в долгах! Мне придётся отобрать принадлежащие тебе компании и продать их.");
                     List<CompanyCard> playersOwnedCompanies = player.getOwnedCompanies();
-//                    Collections.sort(playersOwnedCompanies);
                     Iterator<CompanyCard> iterOwnedCompanies = playersOwnedCompanies.iterator();
                     while (iterOwnedCompanies.hasNext()) {
                         CompanyCard companyCard = iterOwnedCompanies.next();
@@ -351,49 +341,6 @@ public class GameSession {
         }
         return false;
     }
-
-//    public void generateMap() {
-//        cardsOfMap.add(new Card("START", 0));
-//        cardsOfMap.add(new CompanyCard("Chanel", 1, 600, 20));
-//        cardsOfMap.add(new ChanceCard(2));
-//        cardsOfMap.add(new CompanyCard("Hugo Boss", 3, 600, 40));
-//        cardsOfMap.add(new ChargeCard(4));
-//        cardsOfMap.add(new CompanyCard("Mersedes", 5, 2000, 250));
-//        cardsOfMap.add(new CompanyCard("Adidas", 6, 1000, 60));
-//        cardsOfMap.add(new ChanceCard(7));
-//        cardsOfMap.add(new CompanyCard("Puma", 8, 1000, 60));
-//        cardsOfMap.add(new CompanyCard("Lacoste", 9, 1200, 80));
-//        cardsOfMap.add(new TravelCard(10));
-//        cardsOfMap.add(new CompanyCard("VK", 11, 1400, 100));
-//        cardsOfMap.add(new CompanyCard("Rockstar Games", 12, 1500, (dice1.getDiceResult() + dice2.getDiceResult()) * 100));
-//        cardsOfMap.add(new CompanyCard("Facebook", 13, 1400, 100));
-//        cardsOfMap.add(new CompanyCard("Twitter", 14, 1600, 120));
-//        cardsOfMap.add(new CompanyCard("Audi", 15, 2000, 250));
-//        cardsOfMap.add(new CompanyCard("Coca Cola", 16, 1800, 140));
-//        cardsOfMap.add(new ChanceCard(17));
-//        cardsOfMap.add(new CompanyCard("Pepsi", 18, 1800, 140));
-//        cardsOfMap.add(new CompanyCard("Fanta", 19, 2000, 160));
-//        cardsOfMap.add(new JackpotCard(20));
-//        cardsOfMap.add(new CompanyCard("American Airlines", 21, 2200, 180));
-//        cardsOfMap.add(new ChanceCard(22));
-//        cardsOfMap.add(new CompanyCard("Lufthansa", 23, 2200, 180));
-//        cardsOfMap.add(new CompanyCard("British Airways", 24, 2400, 200));
-//        cardsOfMap.add(new CompanyCard("Ford", 25, 2000, 250));
-//        cardsOfMap.add(new CompanyCard("McDonalds", 26, 2600, 220));
-//        cardsOfMap.add(new CompanyCard("Burger King", 27, 2600, 220));
-//        cardsOfMap.add(new CompanyCard("Rovio Games", 28, 1500, (dice1.getDiceResult() + dice2.getDiceResult()) * 100));
-//        cardsOfMap.add(new CompanyCard("KFC", 29, 2800, 240));
-//        cardsOfMap.add(new JailCard(30, 0));
-//        cardsOfMap.add(new CompanyCard("Holiday Inn", 31, 3000, 260));
-//        cardsOfMap.add(new CompanyCard("Radisson", 32, 3000, 260));
-//        cardsOfMap.add(new ChanceCard(33));
-//        cardsOfMap.add(new CompanyCard("Novotel", 34, 3200, 280));
-//        cardsOfMap.add(new CompanyCard("Land Rover", 35, 2000, 250));
-//        cardsOfMap.add(new ChargeCard(36));
-//        cardsOfMap.add(new CompanyCard("Apple", 37, 3500, 350));
-//        cardsOfMap.add(new ChanceCard(38));
-//        cardsOfMap.add(new CompanyCard("Nokia", 39, 4000, 500));
-//    }
 
     public String getJackpotSymbols() {
         List<String> symbols = new ArrayList<>();

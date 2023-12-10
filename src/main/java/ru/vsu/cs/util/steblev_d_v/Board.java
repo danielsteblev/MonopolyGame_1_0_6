@@ -9,19 +9,13 @@ import static java.lang.Math.round;
 
 public class Board implements GraphicsManagerInterface {
     private List<Card> board = new ArrayList<>();
-    private List<String> graphicsBoard = new ArrayList<>();
     public static List<Integer> lastIndexes = new ArrayList<>();
-    public static List<Card> deletedELements = new ArrayList<>();
-
-    public List<String> generateGraphicsBoard(List<Card> board) {
-        List<String> graphicsBoard = new ArrayList<>();
-        for (int i = 0; i < board.size(); i++) {
-            graphicsBoard.add(board.get(i).getName());
-        }
-        return graphicsBoard;
-    }
+    public static List<String> deletedELements = new ArrayList<>();
+    public static List<String> deletedColors = new ArrayList<>();
+    public static Board graphicsCopy = new Board();
 
     public void render() {
+
         // Рендер верхней строки
         List<TextArea> upperLine = new ArrayList<>();
         for (int k = 0; k < board.size() / 4 + 1; k++) {
@@ -57,25 +51,28 @@ public class Board implements GraphicsManagerInterface {
     }
 
 
+
     public void writePlayersMapping(List<Player> players) {
-        graphicsBoard = generateGraphicsBoard(board);
+        // TODO: сделать графическую доску для рендеринга, не меняя основную
         if (GameSession.numberOfMove == 1) { // Проверка на 1 ход
             for (int i = 0; i < players.size(); i++) {
                 lastIndexes.add(0);
-                deletedELements.add(board.get(players.get(i).getCurrCardIndex()));
+                deletedELements.add(board.get(players.get(i).getCurrCardIndex()).getName());
+                deletedColors.add(board.get(players.get(i).getCurrCardIndex()).getColor());
             }
         }
         for (int i = 0; i < players.size(); i++) {
             /*
             Возвращаем удалённый элемент на место, до этого записав его индекс и сам элемент в список.
              */
-            board.set(lastIndexes.get(i), deletedELements.get(i));
+            board.get(lastIndexes.get(i)).setName(deletedELements.get(i));
+            board.get(lastIndexes.get(i)).setColor(deletedColors.get(i));
             lastIndexes.set(i, players.get(i).getCurrCardIndex()); // Запоминаем новый индекс удалённого элемента
-            deletedELements.set(i, board.get(players.get(i).getCurrCardIndex())); // Запоминаем новый удалённый элемент
+            deletedELements.set(i, board.get(players.get(i).getCurrCardIndex()).getName()); // Запоминаем новый удалённый элемент
             List<String> playerFace = Arrays.asList("\uD83D\uDC68", "\uD83D\uDC69",
                     "\uD83E\uDDD1", "\uD83E\uDDD2");
-            Card playerCard = new Card(playerFace.get(i) + players.get(i).getName(), 999, GraphicsUtils.convertColorNameToConsole("cyan", true));
-            board.set(players.get(i).getCurrCardIndex(), playerCard);
+            board.get(players.get(i).getCurrCardIndex()).setName(playerFace.get(i) + players.get(i).getName());
+            board.get(players.get(i).getCurrCardIndex()).setColor(GraphicsUtils.convertColorNameToConsole("cyan", true));
             /*
             Запомнили всё, что нужно и только теперь можем поставить маркер игрока на поле, где он стоит.
              */
