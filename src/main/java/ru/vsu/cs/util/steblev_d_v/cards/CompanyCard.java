@@ -1,12 +1,11 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
-
-import ru.vsu.cs.util.steblev_d_v.Player;
+import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 public class CompanyCard extends Card {
 
     private int price;
     private int rentPrice;
-    private Player owner;
+    private PlayerInterface owner;
 
     public CompanyCard(String name, int locationIndex, int price, int rentPrice, String color) {
         super(name, locationIndex, color);
@@ -31,11 +30,11 @@ public class CompanyCard extends Card {
         this.rentPrice = rentPrice;
     }
 
-    public Player getOwner() {
+    public PlayerInterface getOwner() {
         return owner;
     }
 
-    public void setOwner(Player owner) {
+    public void setOwner(PlayerInterface owner) {
         this.owner = owner;
     }
 

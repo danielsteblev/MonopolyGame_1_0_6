@@ -1,6 +1,4 @@
-package ru.vsu.cs.util.steblev_d_v;
-
-import ru.vsu.cs.util.steblev_d_v.cards.Card;
+package ru.vsu.cs.util.steblev_d_v.graphics;
 
 import java.util.ArrayList;
 import java.util.List;

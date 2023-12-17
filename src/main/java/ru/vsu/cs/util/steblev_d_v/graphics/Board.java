@@ -1,6 +1,8 @@
-package ru.vsu.cs.util.steblev_d_v;
+package ru.vsu.cs.util.steblev_d_v.graphics;
 
+import ru.vsu.cs.util.steblev_d_v.GameSession;
 import ru.vsu.cs.util.steblev_d_v.cards.Card;
+import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import java.util.*;
 
@@ -74,7 +76,7 @@ public class Board implements GraphicsManagerInterface {
         return graphicsColorsBoard;
     }
 
-    public void writePlayersMapping(List<Player> players) {
+    public void writePlayersMapping(List<PlayerInterface> players) {
         checkGraphicsIsCreate();
         if (GameSession.numberOfMove == 1) { // Проверка на 1 ход
             for (int i = 0; i < players.size(); i++) {
@@ -92,9 +94,7 @@ public class Board implements GraphicsManagerInterface {
             lastIndexes.set(i, players.get(i).getCurrCardIndex()); // Запоминаем новый индекс удалённого элемента
             deletedELements.set(i, graphicsBoard.get(players.get(i).getCurrCardIndex()));
             deletedColors.set(i, graphicsColorsBoard.get(players.get(i).getCurrCardIndex())); // Запоминаем новый удалённый элемент
-            List<String> playerFace = Arrays.asList("\uD83D\uDC68", "\uD83D\uDC69",
-                    "\uD83E\uDDD1", "\uD83E\uDDD2");
-            graphicsBoard.set(players.get(i).getCurrCardIndex(), playerFace.get(i) + players.get(i).getName());
+            graphicsBoard.set(players.get(i).getCurrCardIndex(), players.get(i).getName());
             graphicsColorsBoard.set(players.get(i).getCurrCardIndex(), GraphicsUtils.convertColorNameToConsole("cyan", true));
             /*
             Запомнили всё, что нужно и только теперь можем поставить маркер игрока на поле, где он стоит.

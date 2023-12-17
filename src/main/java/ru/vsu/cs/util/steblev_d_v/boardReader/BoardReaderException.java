@@ -1,4 +1,4 @@
-package ru.vsu.cs.util.steblev_d_v;
+package ru.vsu.cs.util.steblev_d_v.boardReader;
 
 public class BoardReaderException extends Exception{
     public BoardReaderException(String errorMessage, int lineInd) {

@@ -1,6 +1,6 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 
-import ru.vsu.cs.util.steblev_d_v.Player;
+import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,7 +15,7 @@ public class JackpotCard extends Card {
         return jackpot;
     }
 
-    public static void getJackpot(Player player){
+    public static void getJackpot(PlayerInterface player){
         jackpot = ThreadLocalRandom.current().nextInt(1000, 2000);
         player.setCash(player.getCash() + jackpot);
     }

@@ -1,4 +1,4 @@
-package ru.vsu.cs.util.steblev_d_v;
+package ru.vsu.cs.util.steblev_d_v.graphics;
 
 public interface GraphicsManagerInterface {
     String BLACK_BOLD = "\033[1;30m";
@@ -21,10 +21,6 @@ public interface GraphicsManagerInterface {
     String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";  // CYAN
     String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
     String ANSI_RESET = "\u001B[0m";
-
-    String text = null;
-    String fontColor = null;
-    String backgroundColor = null;
 
     void render();
 }

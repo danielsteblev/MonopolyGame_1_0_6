@@ -1,4 +1,6 @@
-package ru.vsu.cs.util.steblev_d_v;
+package ru.vsu.cs.util.steblev_d_v.graphics;
+
+import ru.vsu.cs.util.steblev_d_v.graphics.GraphicsManagerInterface;
 
 import java.util.ArrayList;
 

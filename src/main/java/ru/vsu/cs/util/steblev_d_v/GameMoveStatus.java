@@ -1,5 +1,7 @@
 package ru.vsu.cs.util.steblev_d_v;
 
+import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,15 +16,15 @@ public class GameMoveStatus {
         return date;
     }
 
-    static List<Player> players = new ArrayList<>();
+    static List<PlayerInterface> players = new ArrayList<>();
 
-    public GameMoveStatus(Date date, int numberMove, List<Player> players) {
+    public GameMoveStatus(Date date, int numberMove, List<PlayerInterface> players) {
         this.date = date;
         this.numberMove = numberMove;
         this.players = players;
     }
 
-    public List<Player> getPlayers() {
+    public List<PlayerInterface> getPlayers() {
         return players;
     }
 
