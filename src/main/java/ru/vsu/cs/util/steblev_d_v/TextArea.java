@@ -20,7 +20,7 @@ public class TextArea implements GraphicsManagerInterface {
                 System.out.print(backgroundColor + fontColor + text + ANSI_RESET + " ");
     }
 
-    public void renderCentralLines(TextArea textArea, TextArea textArea1, List<Card> board, List<TextArea> upperLine) {
+    public void renderCentralLines(TextArea textArea, TextArea textArea1, List<TextArea> upperLine) {
         List<Integer> countSymbols = new ArrayList<>();
         StringBuilder spaces = new StringBuilder();
         int sumSymbols = 0;
@@ -38,10 +38,10 @@ public class TextArea implements GraphicsManagerInterface {
     }
 
 
-    public void sizeNormalize(List<Card> board) {
+    public void sizeNormalize(List<String> board) {
         ArrayList<Integer> cardsLength = new ArrayList<>();
         for (int i = 0; i < board.size(); i++) {
-            cardsLength.add(board.get(i).getName().length());
+            cardsLength.add(board.get(i).length());
         }
         int maxPadding = GraphicsUtils.getMax(cardsLength);
         StringBuilder sb = new StringBuilder(maxPadding);

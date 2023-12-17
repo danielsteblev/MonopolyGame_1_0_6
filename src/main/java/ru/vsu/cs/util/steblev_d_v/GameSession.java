@@ -221,17 +221,19 @@ public class GameSession {
 
                                             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Поздравляю тебя с приобретением " + playerCardAfterMove1.getName() + ". Я думаю ты обязательно окупишься!");
                                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Игрок " + player.getName() + " приобрёл компанию " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
+                                            // TODO сделать чтобы при покупке компании у карточки появлялась метка владельца
+//                                            String result = board.getGraphicsBoard().get(player.getCurrCardIndex()) +  "0" ;
+//                                            board.getGraphicsBoard().set(player.getCurrCardIndex(), result);
+
                                         }
                                     }
                                     if (playerChoice.equals("N") || playerChoice.equals("n")) {
                                         System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вы успешно отказались от покупки компании " + playerCardAfterMove1.getName() + "." + ANSI_RESET);
 
                                     }
-                                    board.writePlayersMapping(players);
-
-
                                 }
                             }
+                            board.writePlayersMapping(players);
                             numberOfMove++;
                             statuses.add(new GameMoveStatus(new Date(), numberOfMove, players));
 
