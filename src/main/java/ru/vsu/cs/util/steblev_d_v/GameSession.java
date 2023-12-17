@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameSession {
     private List<PlayerInterface> players = new ArrayList<>();
     private List<GameMoveStatus> statuses = new ArrayList<>();
+    private Stack<GameMoveStatus> gameHistory = new Stack<>();
     public static int numberOfMove = 1;
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";
@@ -176,7 +177,9 @@ public class GameSession {
                             }
                             board.writePlayersMapping(players);
                             numberOfMove++;
-                            statuses.add(new GameMoveStatus(new Date(), numberOfMove, players));
+                            GameMoveStatus gameMove = new GameMoveStatus(new Date(), numberOfMove, players);
+                            statuses.add(gameMove);
+                            gameHistory.push(gameMove);
                             System.out.println();
                             System.out.println();
                             break;
@@ -215,21 +218,26 @@ public class GameSession {
                         default:
                             return;
 
+
                         case 5:
-                            List<Card> canBuild = new ArrayList<>();
-                            for (int j = 0; j < player.getOwnedCompanies().size(); j++) {
-                                int count = 0;
-                                for (int k = 1; k < player.getOwnedCompanies().size(); k++) {
-                                    if (player.getOwnedCompanies().get(i).getColor().equals(
-                                            player.getOwnedCompanies().get(k).getColor())) {
-                                        canBuild.add(player.getOwnedCompanies().get(i));
-                                        count++;
-                                    }
-                                }
-                                if (count == 3) {
-                                    System.out.println("sucsess");
-                                }
-                            }
+
+
+
+//                        case 6:
+//                            List<Card> canBuild = new ArrayList<>();
+//                            for (int j = 0; j < player.getOwnedCompanies().size(); j++) {
+//                                int count = 0;
+//                                for (int k = 1; k < player.getOwnedCompanies().size(); k++) {
+//                                    if (player.getOwnedCompanies().get(i).getColor().equals(
+//                                            player.getOwnedCompanies().get(k).getColor())) {
+//                                        canBuild.add(player.getOwnedCompanies().get(i));
+//                                        count++;
+//                                    }
+//                                }
+//                                if (count == 3) {
+//                                    System.out.println("sucsess");
+//                                }
+//                            }
                     }
                 }
             }

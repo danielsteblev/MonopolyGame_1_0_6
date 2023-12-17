@@ -25,17 +25,6 @@ public class Person implements PlayerInterface {
         this.name = name;
     }
 
-
-    @Override
-    public void buyCompany(CompanyCard card) {
-
-    }
-
-    @Override
-    public String getType() {
-        return "person";
-    }
-
     @Override
     public int throwDice() {
         Dice dice1 = new Dice();
@@ -124,8 +113,7 @@ public class Person implements PlayerInterface {
 
                 System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Поздравляю тебя с приобретением " + card.getName() + ". Я думаю ты обязательно окупишься!");
                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Игрок " + this.getName() + " приобрёл компанию " + card.getName() + "." + ANSI_RESET);
-                // TODO
-                // сделать чтобы при покупке компании у карточки появлялась метка владельца
+                // TODO сделать чтобы при покупке компании у карточки появлялась метка владельца
 //                                            String result = board.getGraphicsBoard().get(player.getCurrCardIndex()) +  "0" ;
 //                                            board.getGraphicsBoard().set(player.getCurrCardIndex(), result);
 

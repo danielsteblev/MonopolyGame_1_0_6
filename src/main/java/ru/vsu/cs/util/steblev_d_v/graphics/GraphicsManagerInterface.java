@@ -18,8 +18,12 @@ public interface GraphicsManagerInterface {
     String YELLOW_BACKGROUND_BRIGHT = "\033[0;103m";// YELLOW
     String BLUE_BACKGROUND_BRIGHT = "\033[0;104m";// BLUE
     String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m"; // PURPLE
+    String BLACK_UNDERLINED = "\033[4;30m";  // BLACK
+
     String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";  // CYAN
     String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
+    String GREEN_BOLD_BRIGHT = "\033[1;92m"; // GREEN
+
     String ANSI_RESET = "\u001B[0m";
 
     void render();

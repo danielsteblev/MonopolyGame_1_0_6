@@ -22,18 +22,11 @@ public class Bot implements PlayerInterface {
     }
 
     @Override
-    public void buyCompany(CompanyCard card) {
-
-    }
-
-    @Override
     public int throwDice() {
         Dice dice1 = new Dice();
         Dice dice2 = new Dice();
         dice1.throwDice();
         dice2.throwDice();
-
-
         return dice1.getDiceResult() + dice2.getDiceResult();
     }
 
@@ -51,16 +44,9 @@ public class Bot implements PlayerInterface {
     public void setCash(int cash) {
         this.cash = cash;
     }
-
-    @Override
-    public String getType() {
-        return "bot";
-    }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }

@@ -6,8 +6,6 @@ import ru.vsu.cs.util.steblev_d_v.cards.CompanyCard;
 import java.util.List;
 
 public interface PlayerInterface {
-    void buyCompany(CompanyCard card);
-    String getType();
     int throwDice();
     void getJackpot();
     String getName();
