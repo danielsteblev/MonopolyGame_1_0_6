@@ -9,10 +9,10 @@ chance green 1
 comp PUMA 1000 60 blue 0
 comp LACOSTE 1200 80 blue 0
 trav yellow 0
-comp VK 1400 100 cyan 1
+comp VK 1400 100 cyan 0
 comp ROCKSTAR 1500 1000 red 1
-comp FACEBOOK 1400 100 cyan 1
-comp TWITTER 1600 120 cyan 1
+comp FACEBOOK 1400 100 cyan 0
+comp TWITTER 1600 120 cyan 0
 comp AUDI 2000 250 yellow 1
 comp COLA 1800 140 blue 0
 chance green 1

@@ -10,16 +10,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameSession {
     private List<PlayerInterface> players = new ArrayList<>();
     private List<GameMoveStatus> statuses = new ArrayList<>();
-    private Stack<GameMoveStatus> gameHistory = new Stack<>();
-    public static int numberOfMove = 1;
+    List<List<PlayerInterface>> lists = new ArrayList<>();
+    public static int numberOfMove = 0;
+    Stack<GameMoveStatus> gameHistory = new Stack<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";
     public static final String GREEN_BOLD_BRIGHT = "\033[1;92m";
     public static final String BLACK_BOLD = "\033[1;30m";
     public static final String WHITE_BACKGROUND = "\033[47m";
     Board board;
-    Dice dice1 = new Dice();
-    Dice dice2 = new Dice();
 
     public GameSession(Board board) {
         this.board = board;
@@ -94,8 +93,7 @@ public class GameSession {
                     break;
             }
         } while (i <= playerNum);
-
-
+        statuses.add(new GameMoveStatus(numberOfMove, players));
         while (gameCoutined(players)) {
             for (PlayerInterface player : players) {
                 int answerMenuPlayer = 0;
@@ -103,7 +101,7 @@ public class GameSession {
                     System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Панель управления игрока " + WHITE_BACKGROUND + CYAN_BOLD_BRIGHT + player.getName() + "                " + ANSI_RESET);
                     System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "1. Cледующий ход." + "                         " + ANSI_RESET);
                     System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "2. Баланс." + "                               " + ANSI_RESET);
-                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "3. Получить информацию о ходе." + "               " + ANSI_RESET);
+                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "3. Информация о ходах." + "               " + ANSI_RESET);
                     System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "4. Открыть мини-карту." + "                       " + ANSI_RESET);
                     System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите значение (от 1 до 4):" + "                " + ANSI_RESET);
                     answerMenuPlayer = scanner.nextInt();
@@ -116,12 +114,15 @@ public class GameSession {
                                 continue;
                             }
 
-
+                            // Бросаем кости
                             int diceResult = player.throwDice();
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вам выпало: " + diceResult + ANSI_RESET);
 
 
+                            // Получаем новую карту, на которой стоит игрок
                             int playerNewCardIndex = player.getCurrCardIndex() + diceResult;
+
+                            // Проверка на прохождение круга
                             if (playerNewCardIndex >= board.getBoard().size()) {
                                 System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под ником " + player.getName() +
                                         " получает $2000k за проход круга!");
@@ -169,19 +170,17 @@ public class GameSession {
                                     player.setCash(cashAfterRent);
                                     playerCardAfterMove1.getOwner().setCash(playerCardAfterMove1.getOwner().getCash() + rent);
 
-
                                 } else {
                                     System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Хей! У тебя есть: $" + player.getCash() + "k. Желаешь ли ты приобрести " + playerCardAfterMove1.getName() + " по цене: $" + playerCardAfterMove1.getPrice() + "k?");
                                     player.buyProcess(playerCardAfterMove1);
                                 }
                             }
-                            board.writePlayersMapping(players);
                             numberOfMove++;
-                            GameMoveStatus gameMove = new GameMoveStatus(new Date(), numberOfMove, players);
-                            statuses.add(gameMove);
-                            gameHistory.push(gameMove);
+                            gameHistory.push(new GameMoveStatus(numberOfMove, players));
+                            board.writePlayersMapping(players);
                             System.out.println();
                             System.out.println();
+                            lists.add(players);
                             break;
 
                         case 2:
@@ -194,16 +193,44 @@ public class GameSession {
 
 
                         case 3:
-                            if (numberOfMove < 2) {
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "История ходов пока неизвестна! Попробуйте позже." + ANSI_RESET);
-                                System.out.println();
-                                break;
+
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "1. Получить информацию о ходе." + "               " + ANSI_RESET);
+                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "2. Откатить ходы." + "               " + ANSI_RESET);
+                            int answerMovesMenuPlayer = scanner.nextInt();
+                            switch (answerMovesMenuPlayer) {
+                                case 1:
+                                    if (numberOfMove < 1) {
+                                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "История ходов пока неизвестна! Попробуйте позже." + ANSI_RESET);
+                                        System.out.println();
+                                        break;
+                                    }
+
+                                    System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О каком ходе хочешь получить информацию?");
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите номер хода от 1 до " + numberOfMove + "." + "Текущий номер хода: " + numberOfMove + ANSI_RESET);
+                                    int searchNumOfMove = scanner.nextInt();
+                                    GameMoveStatus.getStatusAboutMove(gameHistory, searchNumOfMove);
+                                    break;
+
+                                case 2:
+                                    if (numberOfMove < 1) {
+                                        System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "История ходов пока неизвестна! Попробуйте позже." + ANSI_RESET);
+                                        System.out.println();
+                                        break;
+                                    }
+                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите на сколько ходов хотите откатить  от 1 до " + numberOfMove + "." + "Текущий номер хода: " + numberOfMove + ANSI_RESET);
+                                    int answerM = scanner.nextInt();
+                                    int n = gameHistory.size();
+                                    for (int j = n; j > n - answerM; j--) {
+                                        gameHistory.pop();
+                                    }
+                                    numberOfMove = gameHistory.size();
+
+                                    for (int j = 0; j < players.size() - 1; j++) {
+                                        players.set(j, gameHistory.peek().getPlayers().get(j));
+                                    }
+                                    board.writePlayersMapping(players);
+                                    break;
                             }
-                            int currNumOf = numberOfMove - 1;
-                            System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О каком ходе хочешь получить информацию?");
-                            System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите номер хода от 1 до " + currNumOf + "." + "Текущий номер хода: " + numberOfMove + ANSI_RESET);
-                            int searchNumOfMove = scanner.nextInt();
-                            GameMoveStatus.getStatusAboutMove(statuses, searchNumOfMove);
                             break;
 
                         case 4:
@@ -220,7 +247,6 @@ public class GameSession {
 
 
                         case 5:
-
 
 
 //                        case 6:

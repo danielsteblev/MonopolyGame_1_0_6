@@ -92,8 +92,8 @@ public class Board implements GraphicsManagerInterface {
             graphicsBoard.set(lastIndexes.get(i), deletedELements.get(i));
             graphicsColorsBoard.set(lastIndexes.get(i), deletedColors.get(i));
             lastIndexes.set(i, players.get(i).getCurrCardIndex()); // Запоминаем новый индекс удалённого элемента
-            deletedELements.set(i, graphicsBoard.get(players.get(i).getCurrCardIndex()));
-            deletedColors.set(i, graphicsColorsBoard.get(players.get(i).getCurrCardIndex())); // Запоминаем новый удалённый элемент
+            deletedELements.set(i, board.get(players.get(i).getCurrCardIndex()).getName());
+            deletedColors.set(i, board.get(players.get(i).getCurrCardIndex()).getColor()); // Запоминаем новый удалённый элемент
             graphicsBoard.set(players.get(i).getCurrCardIndex(), players.get(i).getName());
             graphicsColorsBoard.set(players.get(i).getCurrCardIndex(), GraphicsUtils.convertColorNameToConsole("cyan", true));
             /*

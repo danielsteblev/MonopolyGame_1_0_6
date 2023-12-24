@@ -8,6 +8,7 @@ import java.util.List;
 public interface PlayerInterface {
     int throwDice();
     void getJackpot();
+    void buyProcess(CompanyCard card);
     String getName();
     int getCurrCardIndex();
     int getCash();
@@ -16,7 +17,7 @@ public interface PlayerInterface {
     void setCurrCardIndex(int currCardIndex);
     void setInJail(boolean inJail);
     boolean isInJail();
-    void buyProcess(CompanyCard card);
+
 
 }
 
