@@ -140,6 +140,7 @@ public class GameSession {
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
 
 
+
                             playerCardAfterMove.doAction(player); // Что-то делаем в зависимости от типа карты
                             numberOfMove++;
                             gameHistory.push(new GameMoveStatus(numberOfMove, players));
