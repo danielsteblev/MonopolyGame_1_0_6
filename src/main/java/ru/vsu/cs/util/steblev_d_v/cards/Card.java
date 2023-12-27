@@ -1,5 +1,9 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 
+import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
+
+import javax.swing.plaf.PanelUI;
+
 public class Card {
     String name;
     private int locationIndex = 0;
@@ -38,5 +42,9 @@ public class Card {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public void doAction(PlayerInterface player) {
+
     }
 }

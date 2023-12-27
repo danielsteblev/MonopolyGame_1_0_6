@@ -1,5 +1,7 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 
+import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
+
 public class JailCard extends Card {
     private int type;
     public static int goToJailCardInd;
@@ -16,6 +18,15 @@ public class JailCard extends Card {
             jailCardInd = locationIndex;
         } else {
             goToJailCardInd = locationIndex;
+        }
+    }
+
+    @Override
+    public void doAction(PlayerInterface player) {
+        JailCard playerCardAfterMove1 = this;
+        if (playerCardAfterMove1.getType() != 0) {
+            player.setInJail(true);
+            player.setCurrCardIndex(JailCard.jailCardInd);
         }
     }
 }

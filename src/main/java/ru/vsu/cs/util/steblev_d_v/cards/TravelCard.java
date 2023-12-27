@@ -13,4 +13,10 @@ public class TravelCard extends Card {
         int travel = ThreadLocalRandom.current().nextInt(2, 12);
         player.setCurrCardIndex(player.getCurrCardIndex() + travel);
     }
+
+    @Override
+    public void doAction(PlayerInterface player) {
+        TravelCard playerCardAfterMove1 = this;
+        TravelCard.goTravel(player);
+    }
 }

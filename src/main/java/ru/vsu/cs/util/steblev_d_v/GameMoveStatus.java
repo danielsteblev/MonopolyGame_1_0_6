@@ -10,14 +10,14 @@ import static ru.vsu.cs.util.steblev_d_v.GameSession.*;
 
 public class GameMoveStatus {
     private int numberMove;
-    private List<PlayerInterface> players;
+    private  List<PlayerInterface> players;
 
     public GameMoveStatus(int numberMove, List<PlayerInterface> players) {
         this.numberMove = numberMove;
         this.players = players;
     }
 
-    public List<PlayerInterface> getPlayers() {
+    public  List<PlayerInterface> getPlayers() {
         return players;
     }
 

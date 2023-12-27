@@ -89,12 +89,6 @@ public class Bot implements PlayerInterface {
 
     @Override
     public String toString() {
-        return "Bot{" +
-                "name='" + name + '\'' +
-                ", cash=" + cash +
-                ", ownedCompanies=" + ownedCompanies +
-                ", isInJail=" + isInJail +
-                ", currCardIndex=" + currCardIndex +
-                '}';
+        return name;
     }
 }

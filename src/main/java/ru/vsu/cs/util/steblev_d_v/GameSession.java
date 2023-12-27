@@ -139,42 +139,8 @@ public class GameSession {
                             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ну давай посмотрим, что там у нас!");
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
 
-                            if (playerCardAfterMove instanceof JailCard) {
-                                JailCard playerCardAfterMove1 = (JailCard) playerCardAfterMove;
-                                if (playerCardAfterMove1.getType() != 0) {
-                                    player.setInJail(true);
-                                    player.setCurrCardIndex(JailCard.jailCardInd);
-                                }
 
-                            } else if (playerCardAfterMove instanceof JackpotCard) {
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ничего себе! Тебе повезло, ты попал на поле \uD83D\uDC51Джекпот\uD83D\uDC51. Давай проверим твою удачу!");
-                                JackpotCard playerCardAfterMove1 = (JackpotCard) playerCardAfterMove;
-                                player.getJackpot();
-                                System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + getJackpotSymbols());
-                                System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Твой выигрыш: $" + JackpotCard.getJackpot() + "k. Твой баланс: $" + player.getCash() + "k." + ANSI_RESET);
-
-
-                            } else if (playerCardAfterMove instanceof TravelCard) {
-                                TravelCard playerCardAfterMove1 = (TravelCard) playerCardAfterMove;
-                                TravelCard.goTravel(player);
-                            } else if (playerCardAfterMove instanceof CompanyCard) {
-                                CompanyCard playerCardAfterMove1 = (CompanyCard) playerCardAfterMove;
-                                if (playerCardAfterMove1.isLocationOwned()) {
-                                    System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET
-                                            + "Данное поле занято игроком " + playerCardAfterMove1.getOwner().getName() + ".\nТебе придётся оплатить ренту, " +
-                                            "чтобы пойти дальше! С тебя $" + playerCardAfterMove1.getRentPrice() + "k.");
-                                    int rent = playerCardAfterMove1.getRentPrice();
-                                    int cashAfterRent = player.getCash() - rent;
-                                    System.out.println(BLACK_BOLD + WHITE_BACKGROUND
-                                            + "Ваш баланс: $" + player.getCash() + "k. Ваш баланс после оплаты ренты: $" + cashAfterRent + "k." + ANSI_RESET);
-                                    player.setCash(cashAfterRent);
-                                    playerCardAfterMove1.getOwner().setCash(playerCardAfterMove1.getOwner().getCash() + rent);
-
-                                } else {
-                                    System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Хей! У тебя есть: $" + player.getCash() + "k. Желаешь ли ты приобрести " + playerCardAfterMove1.getName() + " по цене: $" + playerCardAfterMove1.getPrice() + "k?");
-                                    player.buyProcess(playerCardAfterMove1);
-                                }
-                            }
+                            playerCardAfterMove.doAction(player); // Что-то делаем в зависимости от типа карты
                             numberOfMove++;
                             gameHistory.push(new GameMoveStatus(numberOfMove, players));
                             board.writePlayersMapping(players);
@@ -316,27 +282,6 @@ public class GameSession {
         return false;
     }
 
-    public String getJackpotSymbols() {
-        List<String> symbols = new ArrayList<>();
-        symbols.add("\uD83C\uDF52");
-        symbols.add("\uD83C\uDF53");
-        symbols.add("\uD83C\uDF49");
-        symbols.add("\uD83C\uDF4B");
-        symbols.add("\uD83E\uDD5D");
-        symbols.add("\uD83D\uDC8E");
-        List<String> returnSymbols = new ArrayList<>();
-
-        for (int j = 0; j < 3; j++) {
-            int i = (int) ((Math.random() * (5 - 0)) + 1);
-            returnSymbols.add(symbols.get(i));
-        }
-        String returnString = returnSymbols.toString()
-                .replace(",", "")  //remove the commas
-                .replace("[", "")  //remove the right bracket
-                .replace("]", "")  //remove the left bracket
-                .trim();
-        return returnString;
-    }
 
 
 }
