@@ -10,7 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class App {
-
+    /**
+     * Консольная игра Монополия
+     * @author Danila Steblev
+     */
     public static void main(String[] args) throws IOException, BoardReaderException {
         Path fileName = Path.of("C:\\Users\\Данил\\MonopolyGame_1_0_4\\boards\\board.txt");
         Board board;

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player implements PlayerInterface{
-
     private String name;
     private int cash = 17500;
     private List<CompanyCard> ownedCompanies = new ArrayList<>();

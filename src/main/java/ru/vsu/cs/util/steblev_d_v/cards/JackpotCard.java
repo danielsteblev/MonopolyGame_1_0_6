@@ -1,7 +1,7 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 
 import ru.vsu.cs.util.steblev_d_v.player.Player;
-import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ public class JackpotCard extends Card {
     public JackpotCard( int locationIndex, String color) {
         super("JACKPOT\uD83C\uDFB0", locationIndex, color);
     }
-
     private static int jackpot;
 
     public static int getJackpot() {
@@ -32,7 +31,6 @@ public class JackpotCard extends Card {
         player.getJackpot();
         System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + getJackpotSymbols());
         System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Твой выигрыш: $" + JackpotCard.getJackpot() + "k. Твой баланс: $" + player.getCash() + "k." + ANSI_RESET);
-
     }
 
 

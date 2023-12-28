@@ -2,13 +2,12 @@ package ru.vsu.cs.util.steblev_d_v;
 
 import ru.vsu.cs.util.steblev_d_v.cards.CompanyCard;
 import ru.vsu.cs.util.steblev_d_v.player.Player;
-import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
+
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-import static ru.vsu.cs.util.steblev_d_v.GameSession.*;
+
 
 public class GameState {
     private int numberMove;
@@ -18,6 +17,11 @@ public class GameState {
     private List<List<CompanyCard>> playerOwnedCompanies = new ArrayList<>();
 
 
+    /**
+     *
+     * @param numberMove номер текущего хода.
+     * @param players список игроков для извлечения оттуда игрового состояния.
+     */
     public GameState(int numberMove, List<Player> players) {
         for (int i = 0; i < players.size(); i++) {
             playersNames.add(players.get(i).getName());

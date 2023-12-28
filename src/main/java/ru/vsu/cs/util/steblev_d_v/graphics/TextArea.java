@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextArea implements GraphicsManagerInterface {
+    /**
+     * Класс для работы с выводом строк в консоль.
+     * @param text содержание текстовой арены.
+     * @param fontColor цвет текста.
+     * @param backgroundColor цвет заднего фона текста.
+     */
     private String text;
     private final String fontColor;
     private final String backgroundColor;
@@ -36,6 +42,12 @@ public class TextArea implements GraphicsManagerInterface {
     }
 
 
+    /**
+     *
+     * @param board исходный board
+     * Данный метод служит для нормализации размеров графической доски относительно текстовой арены
+     *              максимального размера.
+     */
     public void sizeNormalize(List<String> board) {
         ArrayList<Integer> cardsLength = new ArrayList<>();
         for (int i = 0; i < board.size(); i++) {

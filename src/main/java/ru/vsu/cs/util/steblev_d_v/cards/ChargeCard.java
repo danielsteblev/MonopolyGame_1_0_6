@@ -13,4 +13,9 @@ public class ChargeCard extends Card {
         curCash = curCash - 2_000;
         player.setCash(curCash);
     }
+
+    @Override
+    public void doAction(Player player) {
+       // todo action
+    }
 }

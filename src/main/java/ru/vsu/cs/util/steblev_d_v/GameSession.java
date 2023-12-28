@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameSession {
     private List<Player> players = new ArrayList<>();
+    List<String> playerFace = Arrays.asList("\uD83D\uDC68", "\uD83D\uDC69", "\uD83E\uDDD1", "\uD83E\uDDD2");
     private List<GameState> statuses = new ArrayList<>();
     List<GameState> lists = new ArrayList<>();
     public static int numberOfMove = 0;
@@ -74,8 +75,6 @@ public class GameSession {
             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Теперь определимся кто будет играть.");
             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите статус игрока " + i + " (player/bot): " + ANSI_RESET);
             String statusPlayer = scnLine.next();
-            List<String> playerFace = Arrays.asList("\uD83D\uDC68", "\uD83D\uDC69",
-                    "\uD83E\uDDD1", "\uD83E\uDDD2");
             SimplePlayerFactory playerFactory = new SimplePlayerFactory();
             switch (statusPlayer) {
                 case "player":
@@ -87,7 +86,6 @@ public class GameSession {
                     }
                     Player person = playerFactory.createPlayer(PlayerType.PERSON, namePlayer);
                     players.add(person);
-
                     i++;
                     break;
                 case "bot":
@@ -153,7 +151,7 @@ public class GameSession {
                             playerCardAfterMove.doAction(player); // Что-то делаем в зависимости от типа карты
                             numberOfMove++;
 
-                            // TODO Я НЕ ЗНАЮ КАК ЭТО СДЕЛАТЬ. ПОМОГИТЕ ОНИ ОДИНАКОВЫЕ!
+                            // Запись истории ходов
                             GameState gameState = new GameState(numberOfMove, players);
                             gameHistory.push(gameState);
 

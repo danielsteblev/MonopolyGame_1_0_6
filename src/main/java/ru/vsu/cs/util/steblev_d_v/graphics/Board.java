@@ -3,24 +3,31 @@ package ru.vsu.cs.util.steblev_d_v.graphics;
 import ru.vsu.cs.util.steblev_d_v.GameSession;
 import ru.vsu.cs.util.steblev_d_v.cards.Card;
 import ru.vsu.cs.util.steblev_d_v.player.Player;
-import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import java.util.*;
 
-
-
-
-
 public class Board implements GraphicsManagerInterface {
+    /**
+     * Списки для запоминания прошлого состояния на графической карте.
+     * @param lastIndexes запоминает прошлый индекс игрока
+     * @param deletedElements запоминает удалённый элемент на графической карте, для дальнейшего
+     *                        его возврата.
+     * @param deletedColors запоминает цвет удалённого элемента на графической карте,
+     *                      для дальнейшей окраски вовзращённой карты в прежний цвет.
+     */
+    private final List<Integer> lastIndexes = new ArrayList<>();
+    private final List<String> deletedELements = new ArrayList<>();
+    private final List<String> deletedColors = new ArrayList<>();
 
-    private List<Integer> lastIndexes = new ArrayList<>();
-    private List<String> deletedELements = new ArrayList<>();
-    private List<String> deletedColors = new ArrayList<>();
-    private List<Card> board = new ArrayList<>();
+
+    private final List<Card> board = new ArrayList<>();
     private List<String> graphicsBoard;
     private List<String> graphicsColorsBoard;
 
-
+    /**
+     * Проверка создана ли графическая копия карты.
+     * В случае если нет - создаём её.
+     */
     public void checkGraphicsIsCreate() {
         if (graphicsBoard == null) {
             graphicsBoard = new ArrayList<>();
