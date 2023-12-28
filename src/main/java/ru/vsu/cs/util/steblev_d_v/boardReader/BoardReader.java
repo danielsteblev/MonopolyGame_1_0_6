@@ -1,6 +1,6 @@
 package ru.vsu.cs.util.steblev_d_v.boardReader;
 
-import ru.vsu.cs.util.steblev_d_v.boardReader.BoardReaderException;
+import ru.vsu.cs.util.steblev_d_v.exceptions.BoardReaderException;
 import ru.vsu.cs.util.steblev_d_v.cards.*;
 import ru.vsu.cs.util.steblev_d_v.graphics.Board;
 import ru.vsu.cs.util.steblev_d_v.graphics.GraphicsUtils;

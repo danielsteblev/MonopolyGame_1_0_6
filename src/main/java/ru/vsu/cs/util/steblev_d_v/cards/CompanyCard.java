@@ -1,4 +1,5 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
+import ru.vsu.cs.util.steblev_d_v.player.Player;
 import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import static ru.vsu.cs.util.steblev_d_v.GameSession.*;
@@ -7,7 +8,7 @@ public class CompanyCard extends Card {
 
     private int price;
     private int rentPrice;
-    private PlayerInterface owner;
+    private Player owner;
 
     public CompanyCard(String name, int locationIndex, int price, int rentPrice, String color) {
         super(name, locationIndex, color);
@@ -32,11 +33,11 @@ public class CompanyCard extends Card {
         this.rentPrice = rentPrice;
     }
 
-    public PlayerInterface getOwner() {
+    public Player getOwner() {
         return owner;
     }
 
-    public void setOwner(PlayerInterface owner) {
+    public void setOwner(Player owner) {
         this.owner = owner;
     }
 
@@ -45,7 +46,7 @@ public class CompanyCard extends Card {
     }
 
     @Override
-    public void doAction(PlayerInterface player) {
+    public void doAction(Player player) {
         CompanyCard playerCardAfterMove1 = this;
         if (playerCardAfterMove1.isLocationOwned()) {
             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET

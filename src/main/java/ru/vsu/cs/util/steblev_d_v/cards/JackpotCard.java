@@ -1,5 +1,6 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 
+import ru.vsu.cs.util.steblev_d_v.player.Player;
 import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ public class JackpotCard extends Card {
         return jackpot;
     }
 
-    public static void getJackpot(PlayerInterface player){
+    public static void getJackpot(Player player){
         jackpot = ThreadLocalRandom.current().nextInt(1000, 2000);
         player.setCash(player.getCash() + jackpot);
     }
 
     @Override
-    public void doAction(PlayerInterface player) {
+    public void doAction(Player player) {
         System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ничего себе! Тебе повезло, ты попал на поле \uD83D\uDC51Джекпот\uD83D\uDC51. Давай проверим твою удачу!");
         JackpotCard playerCardAfterMove1 = this;
         player.getJackpot();

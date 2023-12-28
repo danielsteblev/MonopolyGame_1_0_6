@@ -7,15 +7,5 @@ public interface PlayerInterface {
     int throwDice();
     void getJackpot();
     void buyProcess(CompanyCard card);
-    String getName();
-    int getCurrCardIndex();
-    int getCash();
-    List<CompanyCard> getOwnedCompanies();
-    void setCash(int cash);
-    void setCurrCardIndex(int currCardIndex);
-    void setInJail(boolean inJail);
-    boolean isInJail();
-
-
 }
 

@@ -1,18 +1,21 @@
 package ru.vsu.cs.util.steblev_d_v;
 
 import ru.vsu.cs.util.steblev_d_v.cards.*;
+import ru.vsu.cs.util.steblev_d_v.exceptions.NumberOfPlayersException;
 import ru.vsu.cs.util.steblev_d_v.graphics.Board;
+import ru.vsu.cs.util.steblev_d_v.history.GameHistory;
+import ru.vsu.cs.util.steblev_d_v.history.Move;
 import ru.vsu.cs.util.steblev_d_v.player.*;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameSession {
-    private List<PlayerInterface> players = new ArrayList<>();
-    private List<GameMoveStatus> statuses = new ArrayList<>();
-    List<List<PlayerInterface>> lists = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
+    private List<GameState> statuses = new ArrayList<>();
+    List<GameState> lists = new ArrayList<>();
     public static int numberOfMove = 0;
-    Stack<GameMoveStatus> gameHistory = new Stack<>();
+    Stack<GameState> gameHistory = new Stack<>();
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";
     public static final String GREEN_BOLD_BRIGHT = "\033[1;92m";
@@ -61,6 +64,7 @@ public class GameSession {
             playerNum = scanner.nextInt();
             if (playerNum < 2 || playerNum > 4) {
                 System.out.println(answersToErrorNumOfPersons.get(ThreadLocalRandom.current().nextInt(0, 1 + 1)));
+                throw new NumberOfPlayersException(playerNum);
             }
         } while (playerNum < 2 || playerNum > 4);
 
@@ -81,21 +85,25 @@ public class GameSession {
                         System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Ой! Похоже это имя уже занято. Попробуй ещё раз.");
                         continue;
                     }
-                    PlayerInterface person = playerFactory.createPlayer(PlayerType.PERSON, namePlayer);
+                    Player person = playerFactory.createPlayer(PlayerType.PERSON, namePlayer);
                     players.add(person);
 
                     i++;
                     break;
                 case "bot":
-                    PlayerInterface bot = playerFactory.createPlayer(PlayerType.BOT, "\uD83E\uDD16bot" + i);
+                    Player bot = playerFactory.createPlayer(PlayerType.BOT, "\uD83E\uDD16bot" + i);
                     players.add(bot);
                     i++;
                     break;
             }
         } while (i <= playerNum);
-        statuses.add(new GameMoveStatus(numberOfMove, players));
+
+
+        GameState startState = new GameState(numberOfMove, players);
+        gameHistory.push(startState);
+
         while (gameCoutined(players)) {
-            for (PlayerInterface player : players) {
+            for (Player player : players) {
                 int answerMenuPlayer = 0;
                 while (!(answerMenuPlayer == 1)) {
                     System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Панель управления игрока " + WHITE_BACKGROUND + CYAN_BOLD_BRIGHT + player.getName() + "                " + ANSI_RESET);
@@ -113,6 +121,9 @@ public class GameSession {
                                 player.setInJail(false);
                                 continue;
                             }
+
+                            // TODO Я НЕ ЗНАЮ КАК ЭТО СДЕЛАТЬ. ПОМОГИТЕ!
+
 
                             // Бросаем кости
                             int diceResult = player.throwDice();
@@ -140,14 +151,16 @@ public class GameSession {
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Сейчас ты находишься на поле: " + playerCardAfterMove.getName() + ANSI_RESET);
 
 
-
                             playerCardAfterMove.doAction(player); // Что-то делаем в зависимости от типа карты
                             numberOfMove++;
-                            gameHistory.push(new GameMoveStatus(numberOfMove, players));
+
+                            // TODO Я НЕ ЗНАЮ КАК ЭТО СДЕЛАТЬ. ПОМОГИТЕ ОНИ ОДИНАКОВЫЕ!
+                            GameState gameState = new GameState(numberOfMove, players);
+                            gameHistory.push(gameState);
+
                             board.writePlayersMapping(players);
                             System.out.println();
                             System.out.println();
-                            lists.add(players);
                             break;
 
                         case 2:
@@ -175,7 +188,7 @@ public class GameSession {
                                     System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О каком ходе хочешь получить информацию?");
                                     System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Введите номер хода от 1 до " + numberOfMove + "." + "Текущий номер хода: " + numberOfMove + ANSI_RESET);
                                     int searchNumOfMove = scanner.nextInt();
-                                    GameMoveStatus.getStatusAboutMove(gameHistory, searchNumOfMove);
+//                                    GameMoveStatus.getStatusAboutMove(gameHistory, searchNumOfMove);
                                     break;
 
                                 case 2:
@@ -192,9 +205,12 @@ public class GameSession {
                                     }
                                     numberOfMove = gameHistory.size();
 
-                                    for (int j = 0; j < players.size() - 1; j++) {
-                                        players.set(j, gameHistory.peek().getPlayers().get(j));
+                                    for (int j = 0; j < players.size(); j++) {
+                                        players.get(j).setCash(gameHistory.peek().getPlayersCash().get(j));
+                                        players.get(j).setCurrCardIndex(gameHistory.peek().getCurrCardInd().get(j));
+                                        players.get(j).setOwnedCompanies(gameHistory.peek().getPlayerOwnedCompanies().get(j));
                                     }
+
                                     board.writePlayersMapping(players);
                                     break;
                             }
@@ -213,24 +229,7 @@ public class GameSession {
                             return;
 
 
-                        case 5:
-
-
-//                        case 6:
-//                            List<Card> canBuild = new ArrayList<>();
-//                            for (int j = 0; j < player.getOwnedCompanies().size(); j++) {
-//                                int count = 0;
-//                                for (int k = 1; k < player.getOwnedCompanies().size(); k++) {
-//                                    if (player.getOwnedCompanies().get(i).getColor().equals(
-//                                            player.getOwnedCompanies().get(k).getColor())) {
-//                                        canBuild.add(player.getOwnedCompanies().get(i));
-//                                        count++;
-//                                    }
-//                                }
-//                                if (count == 3) {
-//                                    System.out.println("sucsess");
-//                                }
-//                            }
+//
                     }
                 }
             }
@@ -238,10 +237,10 @@ public class GameSession {
     }
 
 
-    public boolean gameCoutined(List<PlayerInterface> players) {
-        Iterator<PlayerInterface> iterPlayers = players.iterator();
+    public boolean gameCoutined(List<Player> players) {
+        Iterator<Player> iterPlayers = players.iterator();
         while (iterPlayers.hasNext()) {
-            PlayerInterface player = iterPlayers.next();
+            Player player = iterPlayers.next();
             if (player.getCash() < 0) {
                 if (player.getOwnedCompanies().size() > 0) {
                     System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "О нет! Кажется игрок " + player.getName() + " в долгах! Мне придётся отобрать принадлежащие тебе компании и продать их.");
@@ -266,7 +265,7 @@ public class GameSession {
             }
         }
         if (players.size() == 1) {
-            PlayerInterface winner = players.get(0);
+            Player winner = players.get(0);
             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "УРАААА! Игрок под ником " + winner.getName() + " становится победителем! Мои поздравления! Я до конца верил в тебя, " + winner.getName());
             return false;
         } else {
@@ -274,15 +273,14 @@ public class GameSession {
         }
     }
 
-    public boolean nameIsOccupied(List<PlayerInterface> players, String name) {
-        for (PlayerInterface p : players) {
+    public boolean nameIsOccupied(List<Player> players, String name) {
+        for (Player p : players) {
             if (p.getName().equals(name)) {
                 return true;
             }
         }
         return false;
     }
-
 
 
 }

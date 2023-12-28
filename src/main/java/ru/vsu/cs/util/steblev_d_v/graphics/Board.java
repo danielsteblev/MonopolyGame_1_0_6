@@ -2,6 +2,7 @@ package ru.vsu.cs.util.steblev_d_v.graphics;
 
 import ru.vsu.cs.util.steblev_d_v.GameSession;
 import ru.vsu.cs.util.steblev_d_v.cards.Card;
+import ru.vsu.cs.util.steblev_d_v.player.Player;
 import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import java.util.*;
@@ -76,7 +77,7 @@ public class Board implements GraphicsManagerInterface {
         return graphicsColorsBoard;
     }
 
-    public void writePlayersMapping(List<PlayerInterface> players) {
+    public void writePlayersMapping(List<Player> players) {
         checkGraphicsIsCreate();
         if (GameSession.numberOfMove == 1) { // Проверка на 1 ход
             for (int i = 0; i < players.size(); i++) {

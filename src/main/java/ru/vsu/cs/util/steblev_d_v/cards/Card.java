@@ -1,5 +1,6 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 
+import ru.vsu.cs.util.steblev_d_v.player.Player;
 import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import javax.swing.plaf.PanelUI;
@@ -44,7 +45,7 @@ public class Card {
         return this.name;
     }
 
-    public void doAction(PlayerInterface player) {
+    public void doAction(Player player) {
 
     }
 }

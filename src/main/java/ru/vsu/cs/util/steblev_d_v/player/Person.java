@@ -1,28 +1,18 @@
 package ru.vsu.cs.util.steblev_d_v.player;
 
 import ru.vsu.cs.util.steblev_d_v.Dice;
-import ru.vsu.cs.util.steblev_d_v.cards.Card;
 import ru.vsu.cs.util.steblev_d_v.cards.CompanyCard;
 import ru.vsu.cs.util.steblev_d_v.cards.JackpotCard;
-import ru.vsu.cs.util.steblev_d_v.graphics.GraphicsManagerInterface;
 import ru.vsu.cs.util.steblev_d_v.graphics.TextArea;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static ru.vsu.cs.util.steblev_d_v.GameSession.GREEN_BOLD_BRIGHT;
 import static ru.vsu.cs.util.steblev_d_v.graphics.GraphicsManagerInterface.*;
 
-public class Person implements PlayerInterface {
-    private String name;
-    private int cash = 17500;
-    private List<CompanyCard> ownedCompanies = new ArrayList<>();
-    private boolean isInJail = false;
-    private int currCardIndex = 0;
-
+public class Person extends Player implements PlayerInterface {
     public Person(String name) {
-        this.name = name;
+        this.setName(name);
     }
 
     @Override
@@ -52,46 +42,6 @@ public class Person implements PlayerInterface {
         scnLine.nextLine();
         System.out.println();
         JackpotCard.getJackpot(this);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getCurrCardIndex() {
-        return currCardIndex;
-    }
-
-    @Override
-    public int getCash() {
-        return cash;
-    }
-
-    @Override
-    public List<CompanyCard> getOwnedCompanies() {
-        return ownedCompanies;
-    }
-
-    @Override
-    public void setCash(int cash) {
-        this.cash = cash;
-    }
-
-    @Override
-    public void setCurrCardIndex(int currCardIndex) {
-        this.currCardIndex = currCardIndex;
-    }
-
-    @Override
-    public void setInJail(boolean inJail) {
-        isInJail = inJail;
-    }
-
-    @Override
-    public boolean isInJail() {
-        return isInJail;
     }
 
     @Override
