@@ -18,7 +18,6 @@ public class GameState {
     private List<List<CompanyCard>> playerOwnedCompanies = new ArrayList<>();
 
 
-
     public GameState(int numberMove, List<Player> players) {
         for (int i = 0; i < players.size(); i++) {
             playersNames.add(players.get(i).getName());

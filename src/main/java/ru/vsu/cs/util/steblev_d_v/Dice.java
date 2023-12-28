@@ -4,11 +4,8 @@ public class Dice {
     private int diceResult = 0;
 
     public int getDiceResult() {
+        throwDice();
         return diceResult;
-    }
-
-    public void setDiceResult(int diceResult) {
-        this.diceResult = diceResult;
     }
 
     public void throwDice() {

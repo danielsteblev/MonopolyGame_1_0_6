@@ -12,14 +12,6 @@ public class Bot extends Player implements PlayerInterface {
         this.setName(name);
     }
 
-    @Override
-    public int throwDice() {
-        Dice dice1 = new Dice();
-        Dice dice2 = new Dice();
-        dice1.throwDice();
-        dice2.throwDice();
-        return dice1.getDiceResult() + dice2.getDiceResult();
-    }
 
     @Override
     public void getJackpot() {

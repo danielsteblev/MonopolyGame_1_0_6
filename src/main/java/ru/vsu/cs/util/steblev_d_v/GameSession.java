@@ -21,7 +21,9 @@ public class GameSession {
     public static final String GREEN_BOLD_BRIGHT = "\033[1;92m";
     public static final String BLACK_BOLD = "\033[1;30m";
     public static final String WHITE_BACKGROUND = "\033[47m";
-    Board board;
+    private final Board board;
+    private Dice dice1;
+    private Dice dice2;
 
     public GameSession(Board board) {
         this.board = board;
@@ -122,11 +124,10 @@ public class GameSession {
                                 continue;
                             }
 
-                            // TODO Я НЕ ЗНАЮ КАК ЭТО СДЕЛАТЬ. ПОМОГИТЕ!
-
-
+                            dice1 = new Dice();
+                            dice2 = new Dice();
                             // Бросаем кости
-                            int diceResult = player.throwDice();
+                            int diceResult = dice1.getDiceResult() + dice2.getDiceResult();
                             System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Вам выпало: " + diceResult + ANSI_RESET);
 
 

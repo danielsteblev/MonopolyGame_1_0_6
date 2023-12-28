@@ -15,7 +15,7 @@ public class Person extends Player implements PlayerInterface {
         this.setName(name);
     }
 
-    @Override
+
     public int throwDice() {
         Dice dice1 = new Dice();
         Dice dice2 = new Dice();
