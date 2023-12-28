@@ -17,6 +17,13 @@ public class BoardReader {
     private static final String JAIL_CARD_TOKEN = "jail";
     private static final String TRAVEL_CARD_TOKEN = "trav";
 
+
+    /**
+     * @return В результате выполнения метода получим заполненный board.
+     * @throws BoardReaderException
+     * @exception BoardReaderException в случае некорректного чтения из файла (неверный токен,
+     * нехватка данных и т.д) возможен выброс исключения.
+     */
     public static Board read(String fileContent) throws BoardReaderException {
         Board board = new Board();
 

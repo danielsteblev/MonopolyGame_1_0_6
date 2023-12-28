@@ -44,9 +44,9 @@ public class TextArea implements GraphicsManagerInterface {
 
     /**
      *
-     * @param board исходный board
-     * Данный метод служит для нормализации размеров графической доски относительно текстовой арены
-     *              максимального размера.
+     * @param board исходный board.
+     * Данный метод служит для нормализации размеров графической доски относительно
+     * текстовой арены максимального размера.
      */
     public void sizeNormalize(List<String> board) {
         ArrayList<Integer> cardsLength = new ArrayList<>();
