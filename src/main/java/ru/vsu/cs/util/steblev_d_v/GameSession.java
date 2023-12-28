@@ -3,8 +3,6 @@ package ru.vsu.cs.util.steblev_d_v;
 import ru.vsu.cs.util.steblev_d_v.cards.*;
 import ru.vsu.cs.util.steblev_d_v.exceptions.NumberOfPlayersException;
 import ru.vsu.cs.util.steblev_d_v.graphics.Board;
-import ru.vsu.cs.util.steblev_d_v.history.GameHistory;
-import ru.vsu.cs.util.steblev_d_v.history.Move;
 import ru.vsu.cs.util.steblev_d_v.player.*;
 
 import java.util.*;
