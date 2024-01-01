@@ -28,7 +28,6 @@ public class GameState {
             playersCash.add(players.get(i).getCash());
             currCardInd.add(players.get(i).getCurrCardIndex());
             playerOwnedCompanies.add(players.get(i).getOwnedCompanies());
-
         }
     }
 

@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static ru.vsu.cs.util.steblev_d_v.GameSession.*;
 
-public class JackpotCard extends Card {
+public class JackpotCard extends Card{
     public JackpotCard( int locationIndex, String color) {
         super("JACKPOT\uD83C\uDFB0", locationIndex, color);
     }

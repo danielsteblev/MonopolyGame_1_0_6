@@ -1,6 +1,5 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 import ru.vsu.cs.util.steblev_d_v.player.Player;
-import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import static ru.vsu.cs.util.steblev_d_v.GameSession.*;
 
@@ -61,7 +60,7 @@ public class CompanyCard extends Card {
 
         } else {
             System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Хей! У тебя есть: $" + player.getCash() + "k. Желаешь ли ты приобрести " + playerCardAfterMove1.getName() + " по цене: $" + playerCardAfterMove1.getPrice() + "k?");
-            player.buyProcess(playerCardAfterMove1);
+            player.buyProcess(playerCardAfterMove1, player);
         }
     }
 }

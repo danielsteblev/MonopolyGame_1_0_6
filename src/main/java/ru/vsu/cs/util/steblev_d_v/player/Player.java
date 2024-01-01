@@ -1,16 +1,27 @@
 package ru.vsu.cs.util.steblev_d_v.player;
 
 import ru.vsu.cs.util.steblev_d_v.cards.CompanyCard;
+import ru.vsu.cs.util.steblev_d_v.player.strategy.PlayerStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Player implements PlayerInterface{
+public abstract class Player{
+    PlayerStrategy playerStrategy;
     private String name;
     private int cash = 17500;
     private List<CompanyCard> ownedCompanies = new ArrayList<>();
     private boolean isInJail = false;
     private int currCardIndex = 0;
+
+
+    public void buyProcess(CompanyCard card, Player player){
+        playerStrategy.buyProcess(card, player);
+    }
+
+    public void getJackpot(){
+        playerStrategy.getJackpot();
+    }
 
     public String getName() {
         return name;

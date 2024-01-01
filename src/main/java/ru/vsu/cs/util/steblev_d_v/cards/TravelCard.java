@@ -1,7 +1,6 @@
 package ru.vsu.cs.util.steblev_d_v.cards;
 
 import ru.vsu.cs.util.steblev_d_v.player.Player;
-import ru.vsu.cs.util.steblev_d_v.player.PlayerInterface;
 
 import java.util.concurrent.ThreadLocalRandom;
 
