@@ -19,8 +19,8 @@ public abstract class Player{
         playerStrategy.buyProcess(card, player);
     }
 
-    public void getJackpot(){
-        playerStrategy.getJackpot();
+    public void getJackpot(Player player){
+        playerStrategy.getJackpot(player);
     }
 
     public String getName() {

@@ -134,9 +134,9 @@ public class GameSession {
                             if (playerNewCardIndex >= board.getBoard().size()) {
                                 System.out.println(GREEN_BOLD_BRIGHT + "\n\uD83D\uDC73Богатый Дядюшка: " + ANSI_RESET + "Игрок под ником " + player.getName() +
                                         " получает $2000k за проход круга!");
+                                player.setCash(player.getCash() + 2000);
                                 System.out.println(BLACK_BOLD + WHITE_BACKGROUND + "Зачисление: $2000k. Баланс игрока " + player.getName() +
                                         ": $" + player.getCash() + "k." + ANSI_RESET);
-                                player.setCash(player.getCash() + 2000);
                                 playerNewCardIndex = playerNewCardIndex % board.getBoard().size();
                             }
 

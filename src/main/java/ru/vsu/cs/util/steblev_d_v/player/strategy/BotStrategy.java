@@ -20,7 +20,7 @@ public class BotStrategy extends Player implements PlayerStrategy {
     }
 
     @Override
-    public void getJackpot() {
-        JackpotCard.getJackpot(this);
+    public void getJackpot(Player player) {
+        JackpotCard.getJackpot(player);
     }
 }

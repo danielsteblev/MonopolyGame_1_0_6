@@ -43,12 +43,12 @@ public class PersonStrategy extends Player implements PlayerStrategy {
     }
 
     @Override
-    public void getJackpot() {
+    public void getJackpot(Player player) {
         Scanner scnLine = new Scanner(System.in);
         TextArea jackpotMessage = new TextArea("\uD83D\uDC8EНажмите любую кнопку, чтобы крутить барабан.", BLACK_BOLD, WHITE_BACKGROUND);
         jackpotMessage.render();
         scnLine.nextLine();
         System.out.println();
-        JackpotCard.getJackpot(this);
+        JackpotCard.getJackpot(player);
     }
 }
